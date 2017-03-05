@@ -1,0 +1,35 @@
+﻿<Window x:Class="ReferenceData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="ReferenceData Creator" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="107" Width="315">
+    <Window.Background>
+        <ImageBrush ImageSource="/SinsDataConverter;component/Images/sins_footer_bg.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
+    <Grid Width="293" Height="68">
+        <Label Content="Create ReferenceData From:" Foreground="White" Height="28" Name="lblReferenceData" VerticalAlignment="Top" FontSize="16" Margin="42.5,0,43,0" />
+        <Button AllowDrop="True" Background="#00000000" Content="Vanilla Sins" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="12,34,0,0" Name="btnSins" VerticalAlignment="Top" Width="86">
+            <Button.ContextMenu>
+                <ContextMenu Name="AddToQueueMenu">
+                    <MenuItem Header="File..." Name="btnAddFile" />
+                    <MenuItem Header="Folder..." Name="btnAddFolder" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button AllowDrop="True" Background="#00000000" Content="Entrenchment" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="104,34,0,0" Name="btnEntrench" VerticalAlignment="Top" Width="86">
+            <Button.ContextMenu>
+                <ContextMenu Name="ContextMenu1">
+                    <MenuItem Header="File..." Name="MenuItem1" />
+                    <MenuItem Header="Folder..." Name="MenuItem2" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button AllowDrop="True" Background="#00000000" Content="Diplomacy" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="195,34,0,0" Name="btnDiplo" VerticalAlignment="Top" Width="86">
+            <Button.ContextMenu>
+                <ContextMenu Name="ContextMenu2">
+                    <MenuItem Header="File..." Name="MenuItem3" />
+                    <MenuItem Header="Folder..." Name="MenuItem4" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+    </Grid>
+</Window>

@@ -1,0 +1,11 @@
+﻿<Window x:Class="Subfolders"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Subfolders" Height="237" Width="237" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize" Name="Subfolders">
+    <Window.Background>
+        <ImageBrush ImageSource="/SinsDataConverter;component/Images/sins_footer_bg.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
+    <Grid>
+        <ListBox Height="174" HorizontalAlignment="Left" Margin="12,12,0,0" Name="lstSubfolders" VerticalAlignment="Top" Width="191" Foreground="White" Background="#00000000" BorderBrush="White" />
+    </Grid>
+</Window>

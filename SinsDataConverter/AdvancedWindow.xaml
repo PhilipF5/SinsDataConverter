@@ -1,0 +1,90 @@
+﻿<Window x:Class="AdvancedWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Sins Data Converter v2.1 (Advanced Mode)" Height="401" Width="800" Name="AdvancedWindow" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/Images/sins_footer_bg.jpg" />
+    </Window.Background>
+    <Grid Width="778" Height="362">
+        <Image Height="221" HorizontalAlignment="Left" Margin="12,12,0,0" Name="Image1" Stretch="Fill" VerticalAlignment="Top" Width="251" Source="/Images/SDCv20icon.png" />
+        <Label Content="Conversion Queue:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="269,12,0,0" Name="lblQueue" VerticalAlignment="Top" />
+        <ListBox BorderBrush="White" Foreground="White" Height="187" HorizontalAlignment="Left" Margin="269,46,0,0" Name="lstQueue" VerticalAlignment="Top" Width="497" SelectionMode="Extended">
+            <ListBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#A7000000" Offset="0.442" />
+                    <GradientStop Color="Black" Offset="1" />
+                </LinearGradientBrush>
+            </ListBox.Background>
+        </ListBox>
+        <Button AllowDrop="True" Background="#00000000" Content="Add..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="576,13,0,0" Name="btnAddToQueue" VerticalAlignment="Top" Width="75">
+            <Button.ContextMenu>
+                <ContextMenu Name="AddToQueueMenu">
+                    <MenuItem Name="btnAddFile" Header="File..." AllowDrop="True" />
+                    <MenuItem Name="btnAddFolder" Header="Folder..." AllowDrop="True" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button AllowDrop="False" Background="#00000000" Content="Return to Basic Mode" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="12,239,0,0" Name="btnBasic" VerticalAlignment="Top" Width="251" />
+        <StackPanel Height="24" HorizontalAlignment="Left" Margin="269,240,0,0" Name="grpFormat" Orientation="Horizontal" VerticalAlignment="Top" Width="167">
+            <RadioButton Content="BIN to TXT" Foreground="White" Height="16" IsChecked="False" Name="btnToTXT" Width="86" />
+            <RadioButton Content="TXT to BIN" Foreground="White" Height="16" Name="btnToBIN" Width="86" />
+        </StackPanel>
+        <StackPanel Height="24" HorizontalAlignment="Left" Margin="452,240,0,0" Name="grpVersion" Orientation="Horizontal" VerticalAlignment="Top" Width="310">
+            <RadioButton Content="Original" Foreground="White" Height="16" IsChecked="False" IsEnabled="True" Name="btnSins" Width="60" />
+            <RadioButton Content="Entrenchment" Foreground="White" Height="16" IsEnabled="True" Name="btnEntrenchment" Width="96" />
+            <RadioButton Content="Diplomacy" Foreground="White" Height="16" IsEnabled="True" Name="btnDiplomacy" Width="77" />
+            <RadioButton Content="Rebellion" Foreground="White" Height="16" IsEnabled="True" x:Name="btnRebellion" Width="77" Margin="0,4" />
+        </StackPanel>
+        <CheckBox Background="White" Content="Validate Entity" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="353,302,0,0" Name="btnValidate" VerticalAlignment="Top" Visibility="Hidden" />
+        <CheckBox Background="White" Content="In-Place Conversion" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="452,302,0,0" Name="btnInPlace" VerticalAlignment="Top" />
+        <Button AllowDrop="False" Background="#00000000" Content="Update Selection with Settings" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="592,298,0,0" Name="btnUpdate" VerticalAlignment="Top" Width="174" />
+        <TextBox Background="Black" Cursor="IBeam" Foreground="White" Height="22" HorizontalAlignment="Left" IsReadOnly="True" Margin="353,269,0,0" Name="txtOutput" VerticalAlignment="Top" Width="298">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Paste Folder" Name="btnOutputPasteFolder" />
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
+        <Button AllowDrop="True" Background="#00000000" Content="Output..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="269,268,0,0" Name="btnOutput" VerticalAlignment="Top" Width="75">
+            <Button.ContextMenu>
+                <ContextMenu Name="ContextMenu1">
+                    <MenuItem Header="File..." Name="MenuItem1" />
+                    <MenuItem Header="Folder..." Name="MenuItem2" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button AllowDrop="False" Background="#00000000" Content="Remove Selection" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="657,13,0,0" Name="btnRemove" VerticalAlignment="Top" Width="105">
+            <Button.ContextMenu>
+                <ContextMenu Name="ContextMenu2">
+                    <MenuItem Header="File..." Name="MenuItem3" />
+                    <MenuItem Header="Folder..." Name="MenuItem4" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Background="#00000000" Content="CONVERT" Focusable="False" FontSize="12" FontWeight="Bold" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="633,327,0,0" Name="btnConvert" VerticalAlignment="Top" Width="133" FontStretch="Normal" AllowDrop="False" />
+        <ProgressBar Height="23" HorizontalAlignment="Left" Margin="269,327,0,0" Name="prgsConversion" VerticalAlignment="Top" Width="358" />
+        <Button AllowDrop="False" Background="#00000000" Content="Create ReferenceData from Installed Sins" Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="12,268,0,0" Name="btnReferenceData" VerticalAlignment="Top" Width="251" Visibility="Visible" Opacity="1">
+            <Button.ContextMenu>
+                <ContextMenu Name="RDMenu">
+                    <MenuItem Name="btnRDSins" Header="Original Sins" />
+                    <MenuItem Name="btnRDEntrench" Header="Entrenchment" />
+                    <MenuItem Name="btnRDDiplo" Header="Diplomacy" />
+                    <MenuItem Name="btnRDRebel" Header="Rebellion" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button AllowDrop="False" Background="#00000000" Content="Relocate Sins Mods Folder..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="12,298,0,0" Name="btnRelocateMods" VerticalAlignment="Top" Width="251" />
+        <Button AllowDrop="False" Background="#00000000" Content="Create Entity Manifest..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="12,327,0,0" Name="btnManifest" VerticalAlignment="Top" Width="251">
+            <Button.ContextMenu>
+                <ContextMenu Name="EMMenu">
+                    <MenuItem Name="btnEMEntrench" Header="Entrenchment" />
+                    <MenuItem Name="btnEMDiplo" Header="Diplomacy" />
+                    <MenuItem Name="btnEMRebel" Header="Rebellion" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Background="#00000000" Content="Custom EXE..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="677,268,0,0" Name="btnCustom" VerticalAlignment="Top" Width="89" />
+        <Label Content="Custom Version Selected" Foreground="LimeGreen" Height="24" HorizontalAlignment="Left" Margin="531,238,0,0" Name="lblCustomSelected" VerticalAlignment="Top" Panel.ZIndex="-1" Opacity="0" />
+        <CheckBox Background="White" Content="Include Subfolders" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="452,17,0,0" Name="btnSub" VerticalAlignment="Top" />
+    </Grid>
+</Window>

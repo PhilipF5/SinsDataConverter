@@ -1,0 +1,12 @@
+﻿<Window x:Class="Instructions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Instructions" Height="262" Width="298" Name="Instructions" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Window.Background>
+        <ImageBrush ImageSource="/SinsDataConverter;component/Images/sins_footer_bg.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
+    <Grid>
+        <TextBox Height="170" HorizontalAlignment="Left" IsReadOnly="True" Margin="12,12,0,0" Name="txtHelp" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" Width="252" Background="#93000000" Foreground="White" />
+        <Button Content="Return to Main Screen" Height="23" Margin="72,0,72,12" Name="btnBack" VerticalAlignment="Bottom" Focusable="False" Foreground="White" Background="#00000000" />
+    </Grid>
+</Window>

@@ -567,10 +567,67 @@
     Private Sub MainWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
         GetRegistryPaths()
         If CheckPathForGames(False) = False Then
-            If MsgBox("Sins is not properly installed on your computer.  Would you like to set a custom default path for the game?", MsgBoxStyle.YesNo, "Attention") = MsgBoxResult.Yes Then
-                SetCustomGamePath()
+            If MsgBox("Is Sins installed with Steam?", MsgBoxStyle.YesNo, "Attention") = MsgBoxResult.Yes Then
+                Dim SinsDir As String
+                Dim SteamDir As String
+                Dim RegPath As Microsoft.Win32.RegistryKey
+                Try
+                    RegPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\Valve\Steam", False)
+                    SteamDir = RegPath.GetValue("InstallPath")
+                    SinsDir = SteamDir & "\steamapps\common\Sins of a Solar Empire Rebellion"
+                Catch ex87 As NullReferenceException
+                End Try
+                If MsgBox("Does this path look correct to you? " + vbCrLf + SinsDir, MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
+                    My.Settings.SavedInstall = SinsDir
+
+                    If SinsDir.Contains("Rebellion") Then
+                        btnRebellion.IsChecked = True
+                    ElseIf SinsDir.Contains("Trinity") Then
+                        btnDiplomacy.IsChecked = True
+                    End If
+                Else
+                    If MsgBox("Sins could not be auto-detected. Would you like to be guided through the manual setup?", MsgBoxStyle.YesNo, "Attention") = MsgBoxResult.Yes Then
+                        SetCustomGamePath()
+                        MsgBox("The custom path has been set to:" & vbCrLf & My.Settings.SavedInstall, MsgBoxStyle.Information, "Confirm")
+                        If MsgBox("Is this version Rebellion?", MsgBoxStyle.YesNo, "Version Check: Rebellion") = MsgBoxResult.Yes Then
+                            btnRebellion.IsChecked = True
+                        Else
+                            If MsgBox("Is this version Trinity/Diplomacy?", MsgBoxStyle.YesNo, "Version Check: Trinity/Diplomacy") = MsgBoxResult.Yes Then
+                                btnDiplomacy.IsChecked = True
+                            Else
+                                If MsgBox("Is this version Entrenchment?", MsgBoxStyle.YesNo, "Version Check: Entrechment") = MsgBoxResult.Yes Then
+                                    btnEntrenchment.IsChecked = True
+                                Else
+                                    MsgBox("Your version has been set to Original by default", MsgBoxStyle.Information, "Version Check: Default")
+                                    btnSins.IsChecked = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            Else
+                If MsgBox("Sins could not be auto-detected. Would you like to be guided through the manual setup?", MsgBoxStyle.YesNo, "Attention") = MsgBoxResult.Yes Then
+                    SetCustomGamePath()
+                    MsgBox("The custom path has been set to:" & vbCrLf & My.Settings.SavedInstall, MsgBoxStyle.Information, "Confirm")
+                    If MsgBox("Is this version Rebellion?", MsgBoxStyle.YesNo, "Version Check: Rebellion") = MsgBoxResult.Yes Then
+                        btnRebellion.IsChecked = True
+                    Else
+                        If MsgBox("Is this version Trinity/Diplomacy?", MsgBoxStyle.YesNo, "Version Check: Trinity/Diplomacy") = MsgBoxResult.Yes Then
+                            btnDiplomacy.IsChecked = True
+                        Else
+                            If MsgBox("Is this version Entrenchment?", MsgBoxStyle.YesNo, "Version Check: Entrechment") = MsgBoxResult.Yes Then
+                                btnEntrenchment.IsChecked = True
+                            Else
+                                MsgBox("Your version has been set to Original by default", MsgBoxStyle.Information, "Version Check: Default")
+                                btnSins.IsChecked = True
+                            End If
+                        End If
+                    End If
+                    'MsgBox(My.Settings.SavedInstall, MsgBoxStyle.Information, "Confirm")
+                End If
             End If
         End If
+
         If Not My.Settings.SavedEXE = "" Then
             CustomOn(sender, e, My.Settings.SavedEXE)
         End If

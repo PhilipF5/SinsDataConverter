@@ -31,6 +31,7 @@ namespace SinsDataConverter
 					writer.WriteLine(job.ToString());
 				}
 			}
+			return outputStream;
 		}
 	}
 }

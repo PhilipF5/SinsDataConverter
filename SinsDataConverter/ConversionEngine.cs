@@ -16,7 +16,7 @@ namespace SinsDataConverter
 		private static FileStream _fileStream;
 		private static List<ConversionJob> _jobs;
 		private static FileInfo _scriptFile;
-		private static DirectoryInfo _scriptsLocation = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+		private static DirectoryInfo _scriptsLocation = new DirectoryInfo(SdcSettings.ScriptsLocation);
 
 		public static bool EnableLogging
 		{

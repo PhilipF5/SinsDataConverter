@@ -13,14 +13,7 @@ namespace SinsDataConverter
 		{
 			get
 			{
-				if (Is64Bit)
-				{
-					return "SOFTWARE\\Wow6432Node\\Stardock\\Drengin.net\\";
-				}
-				else
-				{
-					return "SOFTWARE\\Stardock\\Drengin.net\\";
-				}
+				return $"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Stardock\\Drengin.net\\";
 			}
 		}
 
@@ -69,6 +62,14 @@ namespace SinsDataConverter
 			get
 			{
 				return Registry.LocalMachine.OpenSubKey(_root + "sinsrebellion", false);
+			}
+		}
+
+		public static RegistryKey Steam
+		{
+			get
+			{
+				return Registry.LocalMachine.OpenSubKey($"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Valve\\Steam", false);
 			}
 		}
 	}

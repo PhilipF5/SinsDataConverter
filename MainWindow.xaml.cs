@@ -66,7 +66,6 @@ namespace SinsDataConverter
 			if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				OutputTextBox.Text = folderDialog.SelectedPath;
-				_folderSelected = true;
 			}
 		}
 	}

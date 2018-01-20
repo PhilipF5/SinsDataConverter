@@ -22,6 +22,17 @@ namespace SinsDataConverter
 			{
 				return !_directionToTxt;
 			}
+			set
+			{
+				if (value)
+				{
+					_directionToTxt = false;
+				}
+				else
+				{
+					_directionToTxt = true;
+				}
+			}
 		}
 
 		public bool ConvertToTxt
@@ -29,6 +40,17 @@ namespace SinsDataConverter
 			get
 			{
 				return _directionToTxt;
+			}
+			set
+			{
+				if (value)
+				{
+					_directionToTxt = true;
+				}
+				else
+				{
+					_directionToTxt = false;
+				}
 			}
 		}
 
@@ -111,6 +133,27 @@ namespace SinsDataConverter
 			{
 				return _overwrite;
 			}
+		}
+
+		public static List<ConversionJob> CreateFromFolder(DirectoryInfo folder, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
+		{
+			var files = new List<FileInfo>();
+			foreach (var type in FileTypes.All)
+			{
+				files.AddRange(folder.EnumerateFiles("*" + type.Extension, SearchOption.AllDirectories));
+			}
+			var jobs = new List<ConversionJob>();
+			foreach (var file in files)
+			{
+				jobs.Add(new ConversionJob()
+				{
+					ConvertToTxt = convertToTxt,
+					ExePath = exe.FullName,
+					OutputPath = file.FullName.Replace(folder.FullName, output.FullName),
+					SourcePath = file.FullName
+				});
+			}
+			return jobs;
 		}
 
 		public override string ToString()

@@ -28,7 +28,7 @@ namespace SinsDataConverter
 			Name = "particle"
 		};
 
-		private static FileType[] All = { Brushes, Entity, Mesh, Particle };
+		public static FileType[] All = { Brushes, Entity, Mesh, Particle };
 
 		public static FileType GetFromExtension(string extension)
 		{

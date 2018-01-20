@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Diagnostics;
 using System.Configuration;
+using RunProcessAsTask;
 
 namespace SinsDataConverter
 {
@@ -48,7 +49,14 @@ namespace SinsDataConverter
 
 		public static async Task Run()
 		{
-			Process.Start(_scriptFile.FullName);
+			var batchProcess = new ProcessStartInfo()
+			{
+				FileName = _scriptFile.FullName,
+				UseShellExecute = true,
+				WindowStyle = ProcessWindowStyle.Minimized
+			};
+
+			var batchResults = await ProcessEx.RunAsync(batchProcess);
 
 			if (!SdcSettings.EnableLogging)
 			{

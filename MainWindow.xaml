@@ -20,7 +20,7 @@
             </TextBox.ContextMenu>
         </TextBox>
         <Label Content="Convert:" Height="28" HorizontalAlignment="Left" Margin="12,24,0,0" Name="SourceLabel" VerticalAlignment="Top" Foreground="White" />
-        <TextBox Background="Black" Cursor="IBeam" Foreground="White" Height="23" HorizontalAlignment="Left" IsReadOnly="True" Margin="72,80,0,0" Name="txtOutput" VerticalAlignment="Top" Width="320">
+        <TextBox Background="Black" Cursor="IBeam" Foreground="White" Height="23" HorizontalAlignment="Left" IsReadOnly="True" Margin="72,80,0,0" Name="OutputTextBox" VerticalAlignment="Top" Width="320">
             <TextBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="PasteOutputFolderButton" Header="Paste Folder" />

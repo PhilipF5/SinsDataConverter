@@ -13,7 +13,6 @@ namespace SinsDataConverter
 {
 	static class ConversionEngine
 	{
-		private static FileStream _fileStream;
 		private static List<ConversionJob> _jobs;
 		private static FileInfo _scriptFile;
 		private static DirectoryInfo _scriptsLocation = new DirectoryInfo(SdcSettings.ScriptsLocation);

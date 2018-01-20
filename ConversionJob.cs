@@ -14,7 +14,6 @@ namespace SinsDataConverter
 		private FileInfo _outputFile;
 		private bool _overwrite;
 		private FileInfo _sourceFile;
-		private FileType _type;
 
 		public bool ConvertToBin
 		{
@@ -127,6 +126,14 @@ namespace SinsDataConverter
 			}
 		}
 
+		public FileType Type
+		{
+			get
+			{
+				return FileTypes.GetFromExtension(_sourceFile.Extension);
+			}
+		}
+
 		public bool WillOverwrite
 		{
 			get
@@ -169,7 +176,7 @@ namespace SinsDataConverter
 
 		public override string ToString()
 		{
-			return $"\"{ExePath}\" {_type.Name} \"{SourcePath}\" \"{OutputPath}\"{(ConvertToTxt ? " txt" : "")}";
+			return $"\"{ExePath}\" {Type.Name} \"{SourcePath}\" \"{OutputPath}\"{(ConvertToTxt ? " txt" : "")}";
 		}
 	}
 }

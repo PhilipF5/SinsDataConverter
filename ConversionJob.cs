@@ -135,7 +135,18 @@ namespace SinsDataConverter
 			}
 		}
 
-		public static List<ConversionJob> CreateFromFolder(DirectoryInfo folder, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
+		public static ConversionJob Create(FileInfo file, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
+		{
+			return new ConversionJob()
+			{
+				ConvertToTxt = convertToTxt,
+				ExePath = exe.FullName,
+				OutputPath = file.FullName.Replace(file.DirectoryName, output.FullName),
+				SourcePath = file.FullName
+			};
+		}
+
+		public static List<ConversionJob> Create(DirectoryInfo folder, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
 		{
 			var files = new List<FileInfo>();
 			foreach (var type in FileTypes.All)

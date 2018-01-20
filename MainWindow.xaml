@@ -28,7 +28,6 @@
             </TextBox.ContextMenu>
         </TextBox>
         <Label Content="Output:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="16,79,0,0" Name="OutputLabel" VerticalAlignment="Top" />
-        <CheckBox Content="Include Subfolders" Height="16" HorizontalAlignment="Left" Margin="72,48,0,0" Name="SubfoldersCheckBox" VerticalAlignment="Top" Foreground="White" IsEnabled="False" Background="White" />
         <StackPanel Height="24" HorizontalAlignment="Left" Margin="72,109,0,0" Name="FormatGroup" VerticalAlignment="Top" Width="172" Orientation="Horizontal">
             <RadioButton Content="BIN to TXT" Height="16" Name="ToTxtRadioButton" Width="86" Foreground="White" IsChecked="True" />
             <RadioButton Content="TXT to BIN" Foreground="White" Height="16" Name="ToBinRadioButton" Width="86" />
@@ -43,7 +42,7 @@
         <Label Content="Version:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="14,132,0,0" Name="VersionLabel" VerticalAlignment="Top" />
         <Button Background="#00000000" Content="Custom..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="173,163,0,0" Name="CustomVersionButton" VerticalAlignment="Top" Width="75" />
         <Label Content="Custom Version Selected" Foreground="LimeGreen" Height="24" HorizontalAlignment="Left" Margin="72,132,0,0" Name="CustomSelectedLabel" VerticalAlignment="Top" Panel.ZIndex="-1" Opacity="0" />
-        <CheckBox Background="White" Content="In-Place Conversion" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="215,48,0,0" Name="InPlaceCheckBox" VerticalAlignment="Top" />
+        <CheckBox Background="White" Content="In-Place Conversion" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="72,54,0,0" Name="InPlaceCheckBox" VerticalAlignment="Top" />
         <ListBox Background="#00000000" BorderBrush="White" Foreground="White" Height="145" HorizontalAlignment="Left" Margin="503,41,0,0" Name="SubfoldersListBox" VerticalAlignment="Top" Width="191" SelectionMode="Multiple" />
         <Label Content="Select Subfolders to Ignore:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="503,11,0,0" Name="ExclusionsLabel" VerticalAlignment="Top" />
         <Button Background="#00000000" Content="Advanced..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="93,163,0,0" Name="AdvancedModeButton" VerticalAlignment="Top" Width="75" />

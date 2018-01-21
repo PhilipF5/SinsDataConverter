@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="ConversionEngine.cs" />
     <Compile Include="FileTypes.cs" />
+    <Compile Include="GameVersion.cs" />
     <Compile Include="RegistryKeys.cs" />
     <Compile Include="ScriptBuilder.cs" />
     <Compile Include="SdcSettings.cs" />

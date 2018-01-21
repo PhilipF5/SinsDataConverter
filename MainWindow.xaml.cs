@@ -22,7 +22,9 @@ namespace SinsDataConverter
     /// </summary>
     public partial class MainWindow : Window
     {
+		private bool _convertToTxtSelected = false;
 		private bool _folderSelected = false;
+		private GameVersion _selectedVersion;
 
 		public MainWindow()
 		{

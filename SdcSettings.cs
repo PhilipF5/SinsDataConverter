@@ -10,6 +10,29 @@ namespace SinsDataConverter
 {
 	static class SdcSettings
 	{
+		public static FileInfo DiplomacyExe
+		{
+			get
+			{
+				return DiplomacyPath?.GetFiles("ConvertData_Diplomacy.exe").FirstOrDefault();
+			}
+		}
+
+		public static DirectoryInfo DiplomacyPath
+		{
+			get
+			{
+				try
+				{
+					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["DiplomacyPath"]);
+				}
+				catch (ArgumentNullException)
+				{
+					return null;
+				}
+			}
+		}
+
 		public static bool EnableLogging
 		{
 			get
@@ -20,6 +43,29 @@ namespace SinsDataConverter
 					return enabled;
 				}
 				return false;
+			}
+		}
+
+		public static FileInfo EntrenchmentExe
+		{
+			get
+			{
+				return EntrenchmentPath?.GetFiles("ConvertData_Entrenchment.exe").FirstOrDefault();
+			}
+		}
+
+		public static DirectoryInfo EntrenchmentPath
+		{
+			get
+			{
+				try
+				{
+					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["EntrenchmentPath"]);
+				}
+				catch (ArgumentNullException)
+				{
+					return null;
+				}
 			}
 		}
 
@@ -40,7 +86,8 @@ namespace SinsDataConverter
 		{
 			get
 			{
-				return OriginalSinsPath?.GetFiles("ConvertData.exe").FirstOrDefault();
+				var convertData = OriginalSinsPath?.GetFiles("ConvertData_OriginalSins.exe") ?? OriginalSinsPath?.GetFiles("ConvertData.exe");
+				return convertData?.FirstOrDefault();
 			}
 		}
 
@@ -50,7 +97,30 @@ namespace SinsDataConverter
 			{
 				try
 				{
-					return new DirectoryInfo(ConfigurationManager.AppSettings["OriginalSinsPath"]);
+					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["OriginalSinsPath"]);
+				}
+				catch (ArgumentNullException)
+				{
+					return null;
+				}
+			}
+		}
+
+		public static FileInfo RebellionExe
+		{
+			get
+			{
+				return RebellionPath?.GetFiles("ConvertData_Rebellion.exe").FirstOrDefault();
+			}
+		}
+
+		public static DirectoryInfo RebellionPath
+		{
+			get
+			{
+				try
+				{
+					return new DirectoryInfo(ConfigurationManager.AppSettings["SteamPath"] ?? ConfigurationManager.AppSettings["RebellionPath"]);
 				}
 				catch (ArgumentNullException)
 				{

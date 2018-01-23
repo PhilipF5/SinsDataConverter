@@ -70,5 +70,25 @@ namespace SinsDataConverter
 				OutputTextBox.Text = folderDialog.SelectedPath;
 			}
 		}
+
+		private void OriginalSinsRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_selectedVersion = GameVersion.OriginalSins;
+		}
+
+		private void EntrenchmentRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_selectedVersion = GameVersion.Entrenchment;
+		}
+
+		private void DiplomacyRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_selectedVersion = GameVersion.Diplomacy;
+		}
+
+		private void RebellionRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_selectedVersion = GameVersion.Rebellion;
+		}
 	}
 }

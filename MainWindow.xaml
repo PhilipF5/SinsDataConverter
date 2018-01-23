@@ -33,10 +33,10 @@
             <RadioButton Content="TXT to BIN" Foreground="White" Height="16" Name="ToBinRadioButton" Width="86" />
         </StackPanel>
         <StackPanel Height="24" HorizontalAlignment="Left" Margin="72,133,0,0" Name="VersionGroup" VerticalAlignment="Top" Width="360" Orientation="Horizontal">
-            <RadioButton Content="Original Sins" Height="16" Name="OriginalSinsRadioButton" Foreground="White" Width="89" IsChecked="False" IsEnabled="True" />
-            <RadioButton Content="Entrenchment" Foreground="White" Height="16" Name="EntrenchmentRadioButton" Width="96" IsEnabled="True" />
-            <RadioButton Content="Diplomacy" Foreground="White" Height="16" Name="DiplomacyRadioButton" Width="77" IsEnabled="True" />
-            <RadioButton Content="Rebellion" Foreground="White" Height="16" x:Name="RebellionRadioButton" Width="77" IsEnabled="True" Margin="0,4" />
+            <RadioButton Content="Original Sins" Height="16" Name="OriginalSinsRadioButton" Foreground="White" Width="89" IsChecked="False" IsEnabled="True" Checked="OriginalSinsRadioButton_Checked" />
+            <RadioButton Content="Entrenchment" Foreground="White" Height="16" Name="EntrenchmentRadioButton" Width="96" IsEnabled="True" Checked="EntrenchmentRadioButton_Checked" />
+            <RadioButton Content="Diplomacy" Foreground="White" Height="16" Name="DiplomacyRadioButton" Width="77" IsEnabled="True" Checked="DiplomacyRadioButton_Checked" />
+            <RadioButton Content="Rebellion" Foreground="White" Height="16" x:Name="RebellionRadioButton" Width="77" IsEnabled="True" Margin="0,4" Checked="RebellionRadioButton_Checked" />
         </StackPanel>
         <Label Content="Format:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="16,108,0,0" Name="FormatLabel" VerticalAlignment="Top" />
         <Label Content="Version:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="14,132,0,0" Name="VersionLabel" VerticalAlignment="Top" />

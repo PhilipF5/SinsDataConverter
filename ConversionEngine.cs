@@ -25,7 +25,17 @@ namespace SinsDataConverter
 			}
 		}
 
-		private static void _createScriptFile()
+		public static void AddJob(ConversionJob job)
+		{
+			_jobs.Add(job);
+		}
+
+		public static void AddJobs(IEnumerable<ConversionJob> jobs)
+		{
+			_jobs.AddRange(jobs);
+		}
+
+		public static void CreateScriptFile()
 		{
 			var builder = new ScriptBuilder();
 			builder.AddJobs(_jobs);
@@ -36,11 +46,6 @@ namespace SinsDataConverter
 			}
 		}
 
-		public static void AddJob(ConversionJob job)
-		{
-			_jobs.Add(job);
-		}
-
 		public static void RemoveJob(ConversionJob job)
 		{
 			_jobs.Remove(job);
@@ -48,6 +53,8 @@ namespace SinsDataConverter
 
 		public static async Task Run()
 		{
+			CreateScriptFile();
+
 			var batchProcess = new ProcessStartInfo()
 			{
 				FileName = _scriptFile.FullName,

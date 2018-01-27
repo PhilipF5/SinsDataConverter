@@ -8,9 +8,9 @@ namespace SinsDataConverter
 {
 	class ConversionSettings
 	{
-		public ConversionInputType InputType { get; set; }
-		public ConversionOutputType OutputType { get; set; }
-		public GameVersion Version { get; set; }
+		public ConversionInputType? InputType { get; set; }
+		public ConversionOutputType? OutputType { get; set; }
+		public GameVersion? Version { get; set; }
 
 		public enum ConversionInputType
 		{

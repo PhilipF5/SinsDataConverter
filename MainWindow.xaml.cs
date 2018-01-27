@@ -22,9 +22,7 @@ namespace SinsDataConverter
     /// </summary>
     public partial class MainWindow : Window
     {
-		private bool _convertToTxtSelected = false;
-		private bool _folderSelected = false;
-		private GameVersion _selectedVersion;
+		private ConversionSettings _currentSettings = new ConversionSettings();
 
 		public MainWindow()
 		{
@@ -43,7 +41,7 @@ namespace SinsDataConverter
 			if (filesDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				SourceTextBox.Text = filesDialog.FileName;
-				_folderSelected = false;
+				_currentSettings.InputType = ConversionSettings.ConversionInputType.File;
 			}
 		}
 
@@ -53,13 +51,13 @@ namespace SinsDataConverter
 			if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				SourceTextBox.Text = folderDialog.SelectedPath;
-				_folderSelected = true;
+				_currentSettings.InputType = ConversionSettings.ConversionInputType.Directory;
 			}
 		}
 
 		private void InPlaceCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
-			OutputTextBox.Text = (_folderSelected ? new DirectoryInfo(SourceTextBox.Text).FullName : new FileInfo(SourceTextBox.Text).DirectoryName);
+			OutputTextBox.Text = (_currentSettings.InputType == ConversionSettings.ConversionInputType.Directory ? new DirectoryInfo(SourceTextBox.Text).FullName : new FileInfo(SourceTextBox.Text).DirectoryName);
 		}
 
 		private void OutputButton_Click(object sender, RoutedEventArgs e)
@@ -73,22 +71,22 @@ namespace SinsDataConverter
 
 		private void OriginalSinsRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_selectedVersion = GameVersion.OriginalSins;
+			_currentSettings.Version = GameVersion.OriginalSins;
 		}
 
 		private void EntrenchmentRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_selectedVersion = GameVersion.Entrenchment;
+			_currentSettings.Version = GameVersion.Entrenchment;
 		}
 
 		private void DiplomacyRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_selectedVersion = GameVersion.Diplomacy;
+			_currentSettings.Version = GameVersion.Diplomacy;
 		}
 
 		private void RebellionRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_selectedVersion = GameVersion.Rebellion;
+			_currentSettings.Version = GameVersion.Rebellion;
 		}
 	}
 }

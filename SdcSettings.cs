@@ -137,7 +137,7 @@ namespace SinsDataConverter
 			}
 		}
 
-		public static FileInfo GetExeOfVersion(GameVersion version)
+		public static FileInfo GetExeOfVersion(GameVersion? version)
 		{
 			switch (version)
 			{

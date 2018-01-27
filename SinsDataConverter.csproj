@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConversionEngine.cs" />
+    <Compile Include="ConversionSettings.cs" />
     <Compile Include="FileTypes.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="RegistryKeys.cs" />

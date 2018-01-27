@@ -142,6 +142,57 @@ namespace SinsDataConverter
 			}
 		}
 
+		public static List<ConversionJob> Create(string inputPath, string outputPath, ConversionSettings settings)
+		{
+			List<ConversionJob> jobs;
+			if (settings.InputType == ConversionSettings.ConversionInputType.File)
+			{
+				var file = new FileInfo(inputPath);
+				if (!file.Exists)
+				{
+					throw new FileNotFoundException("Input file does not exist", inputPath);
+				}
+
+				var output = new DirectoryInfo(outputPath);
+				if (!output.Exists)
+				{
+					throw new DirectoryNotFoundException("Output directory does not exist");
+				}
+
+				var exe = SdcSettings.GetExeOfVersion(settings.Version);
+				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
+
+				jobs = new List<ConversionJob>
+				{
+					Create(file, output, exe, convertToTxt)
+				};
+			}
+			else if (settings.InputType == ConversionSettings.ConversionInputType.Directory)
+			{
+				var directory = new DirectoryInfo(inputPath);
+				if (!directory.Exists)
+				{
+					throw new DirectoryNotFoundException("Input directory does not exist");
+				}
+
+				var output = new DirectoryInfo(outputPath);
+				if (!output.Exists)
+				{
+					throw new DirectoryNotFoundException("Output directory does not exist");
+				}
+
+				var exe = SdcSettings.GetExeOfVersion(settings.Version);
+				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
+
+				jobs = Create(directory, output, exe, convertToTxt);
+			}
+			else
+			{
+				throw new NullReferenceException("Input type not specified");
+			}
+			return jobs;
+		}
+
 		public static ConversionJob Create(FileInfo file, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
 		{
 			return new ConversionJob()

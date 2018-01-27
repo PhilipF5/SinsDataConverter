@@ -106,6 +106,7 @@ namespace SinsDataConverter
 				{
 					_overwrite = true;
 				}
+				_outputFile = file;
 			}
 		}
 
@@ -182,6 +183,11 @@ namespace SinsDataConverter
 				}
 
 				var exe = SdcSettings.GetExeOfVersion(settings.Version);
+				if (exe == null || !exe.Exists)
+				{
+					throw new FileNotFoundException("ConvertData EXE does not exist for version " + Enum.GetName(typeof(GameVersion), settings.Version));
+				}
+
 				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
 
 				jobs = Create(directory, output, exe, convertToTxt);

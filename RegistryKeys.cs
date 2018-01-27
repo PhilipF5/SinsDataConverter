@@ -21,7 +21,7 @@ namespace SinsDataConverter
 		{
 			get
 			{
-				return (IntPtr.Size == 8);
+				return Environment.Is64BitOperatingSystem;
 			}
 		}
 

@@ -12,6 +12,13 @@ namespace SinsDataConverter
 		public ConversionOutputType? OutputType { get; set; }
 		public GameVersion? Version { get; set; }
 
+		public bool IsValid()
+		{
+			return !(GetType().GetProperties()
+				.Select(property => property.GetValue(this))
+				.Any(value => value == null));
+		}
+
 		public enum ConversionInputType
 		{
 			File,

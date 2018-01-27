@@ -29,6 +29,11 @@ namespace SinsDataConverter
 			InitializeComponent();
 		}
 
+		private void _showError(string message)
+		{
+			System.Windows.MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
 		private void FileButton_Click(object sender, RoutedEventArgs e)
 		{
 			var filesDialog = new OpenFileDialog()
@@ -108,6 +113,34 @@ namespace SinsDataConverter
 		private void ToBinRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
 			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Bin;
+		}
+
+		private void ConvertButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (!_currentSettings.IsValid())
+			{
+				_showError("All settings are required");
+				return;
+			}
+
+			try
+			{
+				ConversionEngine.StartNew();
+				ConversionEngine.AddJobs(ConversionJob.Create(SourceTextBox.Text, OutputTextBox.Text, _currentSettings));
+				ConversionEngine.CreateScriptFile();
+			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				_showError(ex.Message + Environment.NewLine + ex.ParamName);
+			}
+			catch (DirectoryNotFoundException ex)
+			{
+				_showError(ex.Message);
+			}
+			catch (FileNotFoundException ex)
+			{
+				_showError(ex.Message + Environment.NewLine + ex.FileName);
+			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

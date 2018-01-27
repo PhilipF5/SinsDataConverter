@@ -29,8 +29,8 @@
         </TextBox>
         <Label Content="Output:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="16,79,0,0" Name="OutputLabel" VerticalAlignment="Top" />
         <StackPanel Height="24" HorizontalAlignment="Left" Margin="72,109,0,0" Name="FormatGroup" VerticalAlignment="Top" Width="172" Orientation="Horizontal">
-            <RadioButton Content="BIN to TXT" Height="16" Name="ToTxtRadioButton" Width="86" Foreground="White" IsChecked="True" />
-            <RadioButton Content="TXT to BIN" Foreground="White" Height="16" Name="ToBinRadioButton" Width="86" />
+            <RadioButton Content="BIN to TXT" Height="16" Name="ToTxtRadioButton" Width="86" Foreground="White" Checked="ToTxtRadioButton_Checked" />
+            <RadioButton Content="TXT to BIN" Foreground="White" Height="16" Name="ToBinRadioButton" Width="86" Checked="ToBinRadioButton_Checked" />
         </StackPanel>
         <StackPanel Height="24" HorizontalAlignment="Left" Margin="72,133,0,0" Name="VersionGroup" VerticalAlignment="Top" Width="360" Orientation="Horizontal">
             <RadioButton Content="Original Sins" Height="16" Name="OriginalSinsRadioButton" Foreground="White" Width="89" IsChecked="False" IsEnabled="True" Checked="OriginalSinsRadioButton_Checked" />

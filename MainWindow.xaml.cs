@@ -88,5 +88,15 @@ namespace SinsDataConverter
 		{
 			_currentSettings.Version = GameVersion.Rebellion;
 		}
+
+		private void ToTxtRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Txt;
+		}
+
+		private void ToBinRadioButton_Checked(object sender, RoutedEventArgs e)
+		{
+			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Bin;
+		}
 	}
 }

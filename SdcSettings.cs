@@ -137,6 +137,23 @@ namespace SinsDataConverter
 			}
 		}
 
+		public static FileInfo GetExeOfVersion(GameVersion version)
+		{
+			switch (version)
+			{
+				case GameVersion.OriginalSins:
+					return OriginalSinsExe;
+				case GameVersion.Entrenchment:
+					return EntrenchmentExe;
+				case GameVersion.Diplomacy:
+					return DiplomacyExe;
+				case GameVersion.Rebellion:
+					return RebellionExe;
+				default:
+					throw new ArgumentOutOfRangeException("version", "Invalid version provided");
+			}
+		}
+
 		public static void ScanForInstalls()
 		{
 			UpdateSetting("OriginalSinsPath", RegistryKeys.OriginalSins?.GetValue("Path")?.ToString() ?? "");

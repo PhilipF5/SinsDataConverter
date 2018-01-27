@@ -24,7 +24,7 @@ namespace SinsDataConverter
 			{
 				try
 				{
-					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["DiplomacyPath"]);
+					return new DirectoryInfo(ParseToStringOrNull("TrinityPath") ?? ParseToStringOrNull("DiplomacyPath"));
 				}
 				catch (ArgumentNullException)
 				{
@@ -60,7 +60,7 @@ namespace SinsDataConverter
 			{
 				try
 				{
-					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["EntrenchmentPath"]);
+					return new DirectoryInfo(ParseToStringOrNull("TrinityPath") ?? ParseToStringOrNull("EntrenchmentPath"));
 				}
 				catch (ArgumentNullException)
 				{
@@ -97,7 +97,8 @@ namespace SinsDataConverter
 			{
 				try
 				{
-					return new DirectoryInfo(ConfigurationManager.AppSettings["TrinityPath"] ?? ConfigurationManager.AppSettings["OriginalSinsPath"]);
+					var test = ConfigurationManager.AppSettings["TrinityPath"];
+					return new DirectoryInfo(ParseToStringOrNull("TrinityPath") ?? ParseToStringOrNull("OriginalSinsPath"));
 				}
 				catch (ArgumentNullException)
 				{
@@ -120,7 +121,11 @@ namespace SinsDataConverter
 			{
 				try
 				{
-					return new DirectoryInfo(ConfigurationManager.AppSettings["SteamPath"] ?? ConfigurationManager.AppSettings["RebellionPath"]);
+					if (ParseToStringOrNull("SteamPath") != null)
+					{
+						return new DirectoryInfo(ParseToStringOrNull("SteamPath")).GetDirectories("Sins of a Solar Empire Rebellion", SearchOption.AllDirectories).FirstOrDefault();
+					}
+					return new DirectoryInfo(ParseToStringOrNull("RebellionPath"));
 				}
 				catch (ArgumentNullException)
 				{
@@ -163,6 +168,12 @@ namespace SinsDataConverter
 			return false;
 		}
 
+		public static string ParseToStringOrNull(string settingName)
+		{
+			var setting = ConfigurationManager.AppSettings[settingName];
+			return (String.IsNullOrEmpty(setting) ? null : setting);
+		}
+
 		public static void ScanForInstalls()
 		{
 			UpdateSetting("OriginalSinsPath", RegistryKeys.OriginalSins?.GetValue("Path")?.ToString() ?? "");
@@ -170,7 +181,7 @@ namespace SinsDataConverter
 			UpdateSetting("DiplomacyPath", RegistryKeys.Diplomacy?.GetValue("Path")?.ToString() ?? "");
 			UpdateSetting("TrinityPath", RegistryKeys.Trinity?.GetValue("Path")?.ToString() ?? "");
 			UpdateSetting("RebellionPath", RegistryKeys.Rebellion?.GetValue("Path")?.ToString() ?? "");
-			UpdateSetting("SteamPath", RegistryKeys.Steam?.GetValue("Path")?.ToString() ?? "");
+			UpdateSetting("SteamPath", RegistryKeys.Steam?.GetValue("InstallPath")?.ToString() ?? "");
 		}
 
 		public static void UpdateSetting(string key, string value)

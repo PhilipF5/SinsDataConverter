@@ -154,6 +154,15 @@ namespace SinsDataConverter
 			}
 		}
 
+		public static bool HasVersion(GameVersion version)
+		{
+			if (GetExeOfVersion(version) != null)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public static void ScanForInstalls()
 		{
 			UpdateSetting("OriginalSinsPath", RegistryKeys.OriginalSins?.GetValue("Path")?.ToString() ?? "");

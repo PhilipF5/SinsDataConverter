@@ -109,5 +109,14 @@ namespace SinsDataConverter
 		{
 			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Bin;
 		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			SdcSettings.ScanForInstalls();
+			OriginalSinsRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.OriginalSins);
+			EntrenchmentRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Entrenchment);
+			DiplomacyRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Diplomacy);
+			RebellionRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Rebellion);
+		}
 	}
 }

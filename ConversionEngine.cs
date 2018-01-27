@@ -39,7 +39,7 @@ namespace SinsDataConverter
 		{
 			var builder = new ScriptBuilder();
 			builder.AddJobs(_jobs);
-			_scriptFile = new FileInfo(_scriptsLocation.FullName + "\\" + DateTime.Now.ToString("YYYY-MM-DD_HHmmss") + ".bat");
+			_scriptFile = new FileInfo(_scriptsLocation.FullName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HHmmss") + ".bat");
 			using (var fileStream = _scriptFile.OpenWrite())
 			{
 				builder.Build(fileStream);

@@ -57,7 +57,18 @@ namespace SinsDataConverter
 
 		private void InPlaceCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
-			OutputTextBox.Text = (_currentSettings.InputType == ConversionSettings.ConversionInputType.Directory ? new DirectoryInfo(SourceTextBox.Text).FullName : new FileInfo(SourceTextBox.Text).DirectoryName);
+			switch (_currentSettings.InputType)
+			{
+				case ConversionSettings.ConversionInputType.File:
+					OutputTextBox.Text = new FileInfo(SourceTextBox.Text).DirectoryName;
+					break;
+				case ConversionSettings.ConversionInputType.Directory:
+					OutputTextBox.Text = new DirectoryInfo(SourceTextBox.Text).FullName;
+					break;
+				default:
+					InPlaceCheckBox.IsChecked = false;
+					break;
+			}
 		}
 
 		private void OutputButton_Click(object sender, RoutedEventArgs e)

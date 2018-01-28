@@ -29,6 +29,19 @@ namespace SinsDataConverter
 			InitializeComponent();
 		}
 
+		private void _setInPlace()
+		{
+			switch (_currentSettings.InputType)
+			{
+				case ConversionSettings.ConversionInputType.File:
+					OutputTextBox.Text = new FileInfo(SourceTextBox.Text).DirectoryName;
+					break;
+				case ConversionSettings.ConversionInputType.Directory:
+					OutputTextBox.Text = new DirectoryInfo(SourceTextBox.Text).FullName;
+					break;
+			}
+		}
+
 		private void _showError(string message)
 		{
 			System.Windows.MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -47,6 +60,10 @@ namespace SinsDataConverter
 			{
 				SourceTextBox.Text = filesDialog.FileName;
 				_currentSettings.InputType = ConversionSettings.ConversionInputType.File;
+				if (InPlaceCheckBox.IsChecked == true)
+				{
+					_setInPlace();
+				}
 			}
 		}
 
@@ -57,22 +74,18 @@ namespace SinsDataConverter
 			{
 				SourceTextBox.Text = folderDialog.SelectedPath;
 				_currentSettings.InputType = ConversionSettings.ConversionInputType.Directory;
+				if (InPlaceCheckBox.IsChecked == true)
+				{
+					_setInPlace();
+				}
 			}
 		}
 
 		private void InPlaceCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
-			switch (_currentSettings.InputType)
+			if (!String.IsNullOrWhiteSpace(SourceTextBox.Text))
 			{
-				case ConversionSettings.ConversionInputType.File:
-					OutputTextBox.Text = new FileInfo(SourceTextBox.Text).DirectoryName;
-					break;
-				case ConversionSettings.ConversionInputType.Directory:
-					OutputTextBox.Text = new DirectoryInfo(SourceTextBox.Text).FullName;
-					break;
-				default:
-					InPlaceCheckBox.IsChecked = false;
-					break;
+				_setInPlace();
 			}
 		}
 

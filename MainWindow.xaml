@@ -6,7 +6,6 @@
         <ImageBrush Stretch="UniformToFill" TileMode="None" />
     </Window.Background>
     <Grid Width="706" Height="417">
-        <Button Content="Instructions" Height="23" HorizontalAlignment="Left" Margin="93,163,0,0" Name="HelpButton" VerticalAlignment="Top" Width="75" Foreground="White" Background="#00000000" Focusable="False" Visibility="Hidden" />
         <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="12,163,0,0" Name="ResetButton" VerticalAlignment="Top" Width="75" Foreground="White" Background="#00000000" Focusable="False" Click="ResetButton_Click" />
         <Button Content="CONVERT" Height="23" HorizontalAlignment="Left" Margin="340,163,0,0" Name="ConvertButton" VerticalAlignment="Top" Width="133" FontSize="16" FontWeight="Bold" Foreground="White" Background="#00000000" Focusable="False" Click="ConvertButton_Click" />
         <Button Background="#00000000" Content="File..." Foreground="White" Height="23" HorizontalAlignment="Left" Margin="398,12,0,0" Name="FileButton" VerticalAlignment="Top" Width="75" Focusable="False" AllowDrop="True" Click="FileButton_Click" />
@@ -40,12 +39,10 @@
         </StackPanel>
         <Label Content="Format:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="16,108,0,0" Name="FormatLabel" VerticalAlignment="Top" />
         <Label Content="Version:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="14,132,0,0" Name="VersionLabel" VerticalAlignment="Top" />
-        <Button Background="#00000000" Content="Custom..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="173,163,0,0" Name="CustomVersionButton" VerticalAlignment="Top" Width="75" />
-        <Label Content="Custom Version Selected" Foreground="LimeGreen" Height="24" HorizontalAlignment="Left" Margin="72,132,0,0" Name="CustomSelectedLabel" VerticalAlignment="Top" Panel.ZIndex="-1" Opacity="0" />
+        <Button Background="#00000000" Content="Custom..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="173,163,0,0" Name="CustomVersionButton" VerticalAlignment="Top" Width="75" IsEnabled="False" />
         <CheckBox Background="White" Content="In-Place Conversion" Foreground="White" Height="16" HorizontalAlignment="Left" IsEnabled="True" Margin="72,54,0,0" Name="InPlaceCheckBox" VerticalAlignment="Top" Checked="InPlaceCheckBox_Checked" />
-        <ListBox Background="#00000000" BorderBrush="White" Foreground="White" Height="145" HorizontalAlignment="Left" Margin="503,41,0,0" Name="SubfoldersListBox" VerticalAlignment="Top" Width="191" SelectionMode="Multiple" />
         <Label Content="Select Subfolders to Ignore:" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="503,11,0,0" Name="ExclusionsLabel" VerticalAlignment="Top" />
-        <Button Background="#00000000" Content="Advanced..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="93,163,0,0" Name="AdvancedModeButton" VerticalAlignment="Top" Width="75" />
+        <Button Background="#00000000" Content="Advanced..." Focusable="False" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="93,163,0,0" Name="AdvancedModeButton" VerticalAlignment="Top" Width="75" IsEnabled="False" />
         <ProgressBar Height="23" HorizontalAlignment="Left" Margin="253,163,0,0" Name="ProgressBar" VerticalAlignment="Top" Width="82" />
     </Grid>
 </Window>

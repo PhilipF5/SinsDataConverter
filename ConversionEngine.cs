@@ -57,9 +57,8 @@ namespace SinsDataConverter
 
 			var batchProcess = new ProcessStartInfo()
 			{
-				FileName = _scriptFile.FullName,
-				UseShellExecute = true,
-				WindowStyle = ProcessWindowStyle.Minimized
+				CreateNoWindow = true,
+				FileName = _scriptFile.FullName
 			};
 
 			var batchResults = await ProcessEx.RunAsync(batchProcess);

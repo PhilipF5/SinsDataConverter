@@ -25,7 +25,6 @@ namespace SinsDataConverter
 			}
 			using (var writer = new StreamWriter(outputStream))
 			{
-				writer.WriteLine("@echo off");
 				foreach (var job in _jobs)
 				{
 					writer.WriteLine(job.ToString());

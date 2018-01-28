@@ -6,8 +6,8 @@
         <ImageBrush Stretch="UniformToFill" TileMode="None" />
     </Window.Background>
     <Grid Width="706" Height="417">
-        <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="12,163,0,0" Name="ResetButton" VerticalAlignment="Top" Width="75" Foreground="White" Background="#00000000" Focusable="False" />
         <Button Content="Instructions" Height="23" HorizontalAlignment="Left" Margin="93,163,0,0" Name="HelpButton" VerticalAlignment="Top" Width="75" Foreground="White" Background="#00000000" Focusable="False" Visibility="Hidden" />
+        <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="12,163,0,0" Name="ResetButton" VerticalAlignment="Top" Width="75" Foreground="White" Background="#00000000" Focusable="False" Click="ResetButton_Click" />
         <Button Content="CONVERT" Height="23" HorizontalAlignment="Left" Margin="340,163,0,0" Name="ConvertButton" VerticalAlignment="Top" Width="133" FontSize="16" FontWeight="Bold" Foreground="White" Background="#00000000" Focusable="False" Click="ConvertButton_Click" />
         <Button Background="#00000000" Content="File..." Foreground="White" Height="23" HorizontalAlignment="Left" Margin="398,12,0,0" Name="FileButton" VerticalAlignment="Top" Width="75" Focusable="False" AllowDrop="True" Click="FileButton_Click" />
         <Button Background="#00000000" Content="Folder..." Foreground="White" Height="23" HorizontalAlignment="Left" Margin="398,41,0,0" Name="FolderButton" VerticalAlignment="Top" Width="75" Focusable="False" AllowDrop="True" Click="FolderButton_Click" />

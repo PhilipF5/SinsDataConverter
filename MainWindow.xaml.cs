@@ -29,6 +29,21 @@ namespace SinsDataConverter
 			InitializeComponent();
 		}
 
+		private void _reset()
+		{
+			ConversionEngine.StartNew();
+			SourceTextBox.Text = "";
+			InPlaceCheckBox.IsChecked = false;
+			OutputTextBox.Text = "";
+			ToBinRadioButton.IsChecked = false;
+			ToTxtRadioButton.IsChecked = false;
+			OriginalSinsRadioButton.IsChecked = false;
+			EntrenchmentRadioButton.IsChecked = false;
+			DiplomacyRadioButton.IsChecked = false;
+			RebellionRadioButton.IsChecked = false;
+			_currentSettings = new ConversionSettings();
+		}
+
 		private void _setInPlace()
 		{
 			switch (_currentSettings.InputType)
@@ -138,7 +153,6 @@ namespace SinsDataConverter
 
 			try
 			{
-				ConversionEngine.StartNew();
 				ConversionEngine.AddJobs(ConversionJob.Create(SourceTextBox.Text, OutputTextBox.Text, _currentSettings));
 				ConversionEngine.CreateScriptFile();
 				ProgressBar.IsIndeterminate = true;
@@ -165,10 +179,16 @@ namespace SinsDataConverter
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			SdcSettings.ScanForInstalls();
+			ConversionEngine.StartNew();
 			OriginalSinsRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.OriginalSins);
 			EntrenchmentRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Entrenchment);
 			DiplomacyRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Diplomacy);
 			RebellionRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Rebellion);
+		}
+
+		private void ResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			_reset();
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
 	static class RegistryKeys
 	{

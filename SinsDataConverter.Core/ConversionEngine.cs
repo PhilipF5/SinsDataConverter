@@ -9,13 +9,14 @@ using System.Diagnostics;
 using System.Configuration;
 using RunProcessAsTask;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
-	static class ConversionEngine
+	public static class ConversionEngine
 	{
 		private static List<ConversionJob> _jobs;
+		private static bool _keepScripts;
 		private static FileInfo _scriptFile;
-		private static DirectoryInfo _scriptsLocation = new DirectoryInfo(SdcSettings.ScriptsLocation);
+		private static DirectoryInfo _scriptsLocation;
 
 		public static ReadOnlyCollection<ConversionJob> Queue
 		{
@@ -63,15 +64,17 @@ namespace SinsDataConverter
 
 			var batchResults = await ProcessEx.RunAsync(batchProcess);
 
-			if (!SdcSettings.EnableLogging)
+			if (!_keepScripts)
 			{
 				_scriptFile.Delete();
 			}
 		}
 
-		public static void StartNew()
+		public static void StartNew(string scriptsLocation, bool keepScripts = false)
 		{
 			_jobs = new List<ConversionJob>();
+			_keepScripts = keepScripts;
+			_scriptsLocation = new DirectoryInfo(scriptsLocation);
 		}
 	}
 }

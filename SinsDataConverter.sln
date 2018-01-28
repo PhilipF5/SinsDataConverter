@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinsDataConverter", "SinsDataConverter.csproj", "{8DEFC868-0C09-4CF9-B876-11BDD59BF346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinsDataConverter.UI", "SinsDataConverter.UI\SinsDataConverter.UI.csproj", "{8DEFC868-0C09-4CF9-B876-11BDD59BF346}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7C0E2418-B115-4782-9A05-2BC9741DA3D6} = {7C0E2418-B115-4782-9A05-2BC9741DA3D6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinsDataConverter.Core", "SinsDataConverter.Core\SinsDataConverter.Core.csproj", "{7C0E2418-B115-4782-9A05-2BC9741DA3D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +20,15 @@ Global
 		{8DEFC868-0C09-4CF9-B876-11BDD59BF346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DEFC868-0C09-4CF9-B876-11BDD59BF346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DEFC868-0C09-4CF9-B876-11BDD59BF346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99A320D2-4DF5-42D4-ACD3-10FD32F25E26}
 	EndGlobalSection
 EndGlobal

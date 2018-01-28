@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SinsDataConverter.Core;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +24,8 @@ namespace SinsDataConverter
     public partial class MainWindow : Window
     {
 		private ConversionSettings _currentSettings = new ConversionSettings();
+		private bool _enableLogging;
+		private string _scriptsLocation;
 
 		public MainWindow()
 		{
@@ -31,7 +34,7 @@ namespace SinsDataConverter
 
 		private void _reset()
 		{
-			ConversionEngine.StartNew();
+			ConversionEngine.StartNew(_scriptsLocation, _enableLogging);
 			SourceTextBox.Text = "";
 			InPlaceCheckBox.IsChecked = false;
 			OutputTextBox.Text = "";
@@ -115,22 +118,22 @@ namespace SinsDataConverter
 
 		private void OriginalSinsRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameVersion.OriginalSins;
+			_currentSettings.Version = GameEdition.OriginalSins;
 		}
 
 		private void EntrenchmentRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameVersion.Entrenchment;
+			_currentSettings.Version = GameEdition.Entrenchment;
 		}
 
 		private void DiplomacyRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameVersion.Diplomacy;
+			_currentSettings.Version = GameEdition.Diplomacy;
 		}
 
 		private void RebellionRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameVersion.Rebellion;
+			_currentSettings.Version = GameEdition.Rebellion;
 		}
 
 		private void ToTxtRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -178,12 +181,15 @@ namespace SinsDataConverter
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			SdcSettings.ScanForInstalls();
-			ConversionEngine.StartNew();
-			OriginalSinsRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.OriginalSins);
-			EntrenchmentRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Entrenchment);
-			DiplomacyRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Diplomacy);
-			RebellionRadioButton.IsEnabled = SdcSettings.HasVersion(GameVersion.Rebellion);
+			_enableLogging = Properties.Settings.Default.EnableLogging;
+			_scriptsLocation = String.IsNullOrEmpty(Properties.Settings.Default.ScriptsLocation) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Properties.Settings.Default.ScriptsLocation;
+
+			ExeManager.ScanForInstalls();
+			ConversionEngine.StartNew(_scriptsLocation, _enableLogging);
+			OriginalSinsRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.OriginalSins);
+			EntrenchmentRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.Entrenchment);
+			DiplomacyRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.Diplomacy);
+			RebellionRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.Rebellion);
 		}
 
 		private void ResetButton_Click(object sender, RoutedEventArgs e)

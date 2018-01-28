@@ -1,4 +1,4 @@
-﻿<Window x:Class="SinsDataConverter.MainWindow"
+﻿<Window x:Class="SinsDataConverter.UI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Sins Data Converter" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="228" Width="497" AllowDrop="False" Loaded="Window_Loaded" Icon="Images/logo.ico">

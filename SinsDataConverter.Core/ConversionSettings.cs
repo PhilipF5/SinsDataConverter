@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
-	class ConversionSettings
+	public class ConversionSettings
 	{
 		public ConversionInputType? InputType { get; set; }
 		public ConversionOutputType? OutputType { get; set; }
-		public GameVersion? Version { get; set; }
+		public GameEdition? Version { get; set; }
 
 		public bool IsValid()
 		{

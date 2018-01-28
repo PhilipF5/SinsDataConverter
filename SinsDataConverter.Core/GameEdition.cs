@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
-	enum GameVersion
+	public enum GameEdition
 	{
 		OriginalSins,
 		Entrenchment,

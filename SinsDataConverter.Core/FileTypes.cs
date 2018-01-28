@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
-	static class FileTypes
+	public static class FileTypes
 	{
 		public static FileType Brushes = new FileType()
 		{
@@ -36,7 +36,7 @@ namespace SinsDataConverter
 		}
 	}
 
-	class FileType
+	public class FileType
 	{
 		public string Extension
 		{

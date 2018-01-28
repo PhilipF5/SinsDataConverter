@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace SinsDataConverter
+namespace SinsDataConverter.Core
 {
-	class ConversionJob
+	public class ConversionJob
 	{
 		private bool _directionToTxt;
 		private FileInfo _exe;
@@ -160,7 +160,7 @@ namespace SinsDataConverter
 					throw new DirectoryNotFoundException("Output directory does not exist");
 				}
 
-				var exe = SdcSettings.GetExeOfVersion(settings.Version);
+				var exe = ExeManager.GetFile(settings.Version ?? throw new ArgumentNullException("gameEdition", "No valid game edition provided for this file"));
 				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
 
 				jobs = new List<ConversionJob>
@@ -182,10 +182,10 @@ namespace SinsDataConverter
 					throw new DirectoryNotFoundException("Output directory does not exist");
 				}
 
-				var exe = SdcSettings.GetExeOfVersion(settings.Version);
+				var exe = ExeManager.GetFile(settings.Version ?? throw new ArgumentNullException("gameEdition", "No valid game edition provided for this directory"));
 				if (exe == null || !exe.Exists)
 				{
-					throw new FileNotFoundException("ConvertData EXE does not exist for version " + Enum.GetName(typeof(GameVersion), settings.Version));
+					throw new FileNotFoundException("ConvertData EXE does not exist for version " + Enum.GetName(typeof(GameEdition), settings.Version));
 				}
 
 				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);

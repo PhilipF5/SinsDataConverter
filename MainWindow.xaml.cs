@@ -115,7 +115,7 @@ namespace SinsDataConverter
 			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Bin;
 		}
 
-		private void ConvertButton_Click(object sender, RoutedEventArgs e)
+		private async void ConvertButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_currentSettings.IsValid())
 			{
@@ -128,6 +128,12 @@ namespace SinsDataConverter
 				ConversionEngine.StartNew();
 				ConversionEngine.AddJobs(ConversionJob.Create(SourceTextBox.Text, OutputTextBox.Text, _currentSettings));
 				ConversionEngine.CreateScriptFile();
+				ProgressBar.IsIndeterminate = true;
+				var startTime = DateTime.Now;
+				await ConversionEngine.Run();
+				var endTime = DateTime.Now;
+				ProgressBar.IsIndeterminate = false;
+				System.Windows.MessageBox.Show($"Conversion job started at {startTime.ToString()}{Environment.NewLine}Finished at {endTime.ToString()}", "Conversion finished", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			catch (ArgumentOutOfRangeException ex)
 			{

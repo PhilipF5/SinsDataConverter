@@ -52,8 +52,8 @@ namespace SinsDataConverter
 			var filesDialog = new OpenFileDialog()
 			{
 				InitialDirectory = "Desktop",
-				Filter = "Brushes|*.brushes|Entity|*.entity|Mesh|*.mesh|Particle|*.particle",
-				FilterIndex = 2,
+				Filter = "Sins Data Files|*.brushes;*.entity;*.mesh;*.particle|Brushes|*.brushes|Entity|*.entity|Mesh|*.mesh|Particle|*.particle",
+				FilterIndex = 1,
 				Title = "Select a file to convert..."
 			};
 			if (filesDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

@@ -8,7 +8,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinsDataConverter.UI", "Sin
 		{7C0E2418-B115-4782-9A05-2BC9741DA3D6} = {7C0E2418-B115-4782-9A05-2BC9741DA3D6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinsDataConverter.Core", "SinsDataConverter.Core\SinsDataConverter.Core.csproj", "{7C0E2418-B115-4782-9A05-2BC9741DA3D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SinsDataConverter.Core", "SinsDataConverter.Core\SinsDataConverter.Core.csproj", "{7C0E2418-B115-4782-9A05-2BC9741DA3D6}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SinsDataConverter.Installer", "SinsDataConverter.Installer\SinsDataConverter.Installer.vdproj", "{ED59EACB-0A90-4781-B580-E273E736C841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,9 @@ Global
 		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C0E2418-B115-4782-9A05-2BC9741DA3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED59EACB-0A90-4781-B580-E273E736C841}.Debug|Any CPU.ActiveCfg = Debug
+		{ED59EACB-0A90-4781-B580-E273E736C841}.Release|Any CPU.ActiveCfg = Release
+		{ED59EACB-0A90-4781-B580-E273E736C841}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

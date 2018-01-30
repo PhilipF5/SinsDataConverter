@@ -2,7 +2,31 @@
 title: Sins Data Converter
 ---
 
+# Jumpstart
+**January 2018**
+
+Well, it happened. I finally found the motivation to sit down and start a complete rewrite of the Sins Data Converter code base. This marks the beginning of beta development for **Sins Data Converter 3.0.0**, which will hopefully set the foundation for a whole new phase in the app's life.
+
+## What Users Need to Know
+`3.0.0-beta.1` is not yet feature-complete. The `README` on GitHub has the feature comparison between the classic `2.1.x` release and the new beta. The plan is to eventually have all the original features in the new project. For now, `3.x` supports converting files, converting folders, converting in-place, and converting by copying.
+
+`3.x` supports all editions of *Sins of a Solar Empire*. It auto-detects what editions you have installed. It doesn't yet allow you to specify your own `ConvertData.exe`. It does, however, **work with the Steam edition**, relieving a major pain point of the original app over the past couple years.
+
+If you routinely use the more advanced features of the `2.1.x` app, such as Advanced Mode, ReferenceData creation, or custom `ConvertData.exe`s, you may want to hold off on upgrading until the `3.x` branch gains those features. But if you mostly just use the Basic Mode conversion with your installed copy of *Sins*, either version should work just fine for you.
+
+A final compatibility note: the `3.x` branch requires a newer version of .NET Framework that is not available for Windows XP/Vista. If that's your OS of choice, you're stuck with `2.1.x`. I imagine you're stuck with a lot of other things too, because those platforms are horribly outdated.
+
+## What Developers Need to Know
+I still haven't played *Sins* in years. The primary motivator for me to rewrite this code base was that this is a public project on my GitHub, and the original code was just really bad. You have my sympathies if you tried to wrangle it over the past ~10 months that it's been available. The new code base should be much easier to maintain and contribute to.
+
+Sins Data Converter is a Windows Presentation Foundation (WPF) desktop app. The GUI for such apps is written in XAML; it's been tweaked for the new release, but is mostly faithful to the original GUI that users really liked. All the code behind the GUI, however, has been thrown out.
+
+The new code base is written in C# instead of Visual Basic; that alone should be a big plus for prospective contributors. The new architecture is object-oriented, designed around classes, methods, and properties, with an emphasis on being DRY. To establish orthogonality, the code has been split into two projects. `SinsDataConverter.Core` is a .NET Standard library that contains all the functionality of the program. `SinsDataConverter.UI` is a WPF app which uses the `Core` library's API. The `Core` library is not dependent on the `UI` library.
+
+---
+
 # The Future
+**March 2017**
 
 In March 2010, I released Sins Data Converter to the public for the first time. I was an avid fan of Sins of a Solar Empire, and I enjoyed playing with various mods for the game. I simply used my programming skills (which were rather pathetic at the time) to create a tool to help make these activities a little easier for me, and I decided to share it with the community just for the heck of it.
 

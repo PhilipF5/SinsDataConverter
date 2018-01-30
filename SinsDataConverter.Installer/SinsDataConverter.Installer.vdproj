@@ -178,12 +178,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0746C0F22EF0533E824B36ADCEBB5E56"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EF9EA252D679F9E7E7914A403995452B"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -305,6 +299,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DA30644F1EE7AC342AAB97B62B07F19B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0746C0F22EF0533E824B36ADCEBB5E56"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -553,7 +553,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -809,7 +809,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SinsDataConverter.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:SinsDataConverter.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_ACBD851ADE61F7F9BC3B2B5347B27C38"
@@ -894,7 +894,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1049,7 +1049,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1114,7 +1114,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_D59BE89D93354F9C86209866CCAB5152"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -1139,27 +1139,27 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SinsDataConverter.Installer"
-        "ProductCode" = "8:{F77E6426-8076-4DF3-BD5F-4D9680E0C7E0}"
-        "PackageCode" = "8:{3577FA75-85BF-4A93-97AD-2A2F258260A4}"
+        "ProductName" = "8:Sins Data Converter"
+        "ProductCode" = "8:{9B5189A6-F1DA-4504-8D19-D9AE95616553}"
+        "PackageCode" = "8:{4AED9683-3AC5-49CC-8C6B-CE7BD5D7E3C0}"
         "UpgradeCode" = "8:{AC173BFB-4ABA-49C7-B501-131FD2338B77}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "InstallAllUsers" = "11:TRUE"
+        "ProductVersion" = "8:3.0.0"
+        "Manufacturer" = "8:Philip Fulgham"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:SinsDataConverter.Installer"
+        "Title" = "8:Sins Data Converter"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Philip Fulgham"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_E6B4700982624CE28B48C643800A77AA"
+        "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
@@ -1261,6 +1261,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_348C5E2254F344AF87FD6C3F1D00926C"
+            {
+            "Name" = "8:Sins Data Converter"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E6B4700982624CE28B48C643800A77AA"
+            "Folder" = "8:_5FEA7C7F9CA847038B37DA328A777265"
+            "WorkingFolder" = "8:_D59BE89D93354F9C86209866CCAB5152"
+            "Icon" = "8:_E6B4700982624CE28B48C643800A77AA"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

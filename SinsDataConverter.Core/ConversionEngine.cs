@@ -70,11 +70,11 @@ namespace SinsDataConverter.Core
 			}
 		}
 
-		public static void StartNew(string scriptsLocation, bool keepScripts = false)
+		public static void StartNew(string scriptsLocation = null, bool keepScripts = false)
 		{
 			_jobs = new List<ConversionJob>();
 			_keepScripts = keepScripts;
-			_scriptsLocation = new DirectoryInfo(scriptsLocation);
+			_scriptsLocation = new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 		}
 	}
 }

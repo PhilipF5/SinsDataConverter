@@ -1,5 +1,5 @@
 # Sins Data Converter
-* **2.1.0** — 2012 release written in really messy VB.NET
+* **2.1.x** — 2012 release written in really messy VB.NET
 * **3.0.0-beta** — 2018 WIP written in object-oriented C#
 
 ## Description
@@ -28,9 +28,11 @@ Sins Data Converter is a modding tool for the classic PC strategy game Sins of S
 
 ## System Requirements
 - Microsoft Windows
+	- SDC 2.1.x requires Windows XP or higher
+	- SDC 3.x requires Windows 7 or higher
 - .NET Framework
 	- SDC 2.1.x requires .NET 3.5
-	- SDC 3.0.0 requires .NET 4.7.1
+	- SDC 3.x requires .NET 4.7.1
 - Sins of a Solar Empire OR a `ConvertData*.exe`
 
 ## Background

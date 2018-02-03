@@ -5,6 +5,8 @@
     <Authors>Philip Fulgham</Authors>
     <Company />
     <Version>3.0.0-beta.1</Version>
+    <AssemblyVersion>3.0.0.1</AssemblyVersion>
+    <FileVersion>3.0.0.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

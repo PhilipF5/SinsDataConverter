@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define PROJECTPATH = "..\SinsDataConverter.UI"?>
-  <?define BUILDPATH = "$(var.PROJECTPATH)\bin\Release"?>
+  <?define PROJECTPATH = "$(var.SinsDataConverter.UI.ProjectDir)"?>
+  <?define BUILDPATH = "$(var.SinsDataConverter.UI.TargetDir)"?>
+  <?define VERSION = "!(bind.FileVersion.SinsDataConverter.exe)"?>
   
-	<Product Id="*" Name="Sins Data Converter" Language="1033" Version="3.0.0" Manufacturer="Philip Fulgham" UpgradeCode="64c5ce06-55d0-4a73-901d-271f8b1242f1">
+	<Product Id="*" Name="Sins Data Converter" Language="1033" Version="$(var.VERSION)" Manufacturer="Philip Fulgham" UpgradeCode="64c5ce06-55d0-4a73-901d-271f8b1242f1">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade

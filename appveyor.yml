@@ -1,4 +1,4 @@
-version: 3.0.0-beta.1 build {build}
+version: 3.0.0.{build}
 max_jobs: 1
 
 image: Visual Studio 2017
@@ -7,6 +7,13 @@ init:
 clone_depth: 1
 cache:
   - packages -> **\packages.config
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "3.0.0.{build}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
 
 platform: Any CPU
 configuration:

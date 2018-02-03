@@ -1,6 +1,13 @@
 ---
 title: Sins Data Converter
 ---
+<img src="https://img.shields.io/github/release/philipf5/SinsDataConverter/all.svg">
+<img src="https://img.shields.io/github/downloads/philipf5/SinsDataConverter/total.svg">
+<img src="https://img.shields.io/github/license/philipf5/SinsDataConverter.svg">
+<br>
+<img src="https://img.shields.io/appveyor/ci/philipf5/SinsDataConverter/develop.svg?logo=appveyor">
+<img src="https://img.shields.io/github/last-commit/philipf5/SinsDataConverter/develop.svg">
+<img src="https://img.shields.io/github/issues-raw/philipf5/SinsDataConverter.svg">
 
 # Jumpstart
 **January 2018**

@@ -1,8 +1,4 @@
-version: 3.0.0-beta build {build}
-branches:
-  only:
-    - master
-    - develop
+version: 3.0.0-beta.1 build {build}
 max_jobs: 1
 
 image: Visual Studio 2017
@@ -14,16 +10,18 @@ cache:
 
 platform: Any CPU
 configuration:
-  - Debug
   - Release
 
 build:
   parallel: false
   project: SinsDataConverter.sln
+  verbosity: minimal
+before_build:
+  - nuget restore
 
 test: off
 
 artifacts:
-  - path: SinsDataConverter.Installer\Release\SinsDataConverter.Installer.msi
+  - path: SinsDataConverter.Installer\bin\Release\SinsDataConverter-Installer.msi
 
 deploy: off

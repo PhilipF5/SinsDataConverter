@@ -6,6 +6,8 @@ branches:
 max_jobs: 1
 
 image: Visual Studio 2017
+init:
+  - git config --global core.autocrlf input
 clone_depth: 1
 cache:
   - packages -> **\packages.config

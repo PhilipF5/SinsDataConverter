@@ -1,6 +1,14 @@
 # Sins Data Converter
-* **2.1.x** — 2012 release written in really messy VB.NET
-* **3.0.0-beta** — 2018 WIP written in object-oriented C#
+
+## Versions
+2012 release written in really messy VB.NET
+<br>
+<img src="https://img.shields.io/github/release/philipf5/SinsDataConverter.svg">
+
+2018 WIP written in object-oriented C#
+<br>
+<img src="https://img.shields.io/github/release/philipf5/SinsDataConverter/all.svg">
+<img src="https://ci.appveyor.com/api/projects/status/github/philipf5/SinsDataConverter?svg=true&branch=develop" alt="Project Badge">
 
 ## Description
 Sins Data Converter is a modding tool for the classic PC strategy game Sins of Solar Empire. It provides an easy-to-use GUI for the ConvertData command line utility provided by game developer Ironclad Games. Use of ConvertData is required to translate game files from the machine-readable binary format into an human-readable raw text format for modding. Sins Data Converter boasts a full set of impressive features that take advantage of ConvertData's flexibility, none of which require any knowledge of the command line.

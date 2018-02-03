@@ -25,10 +25,29 @@ build:
   verbosity: minimal
 before_build:
   - nuget restore
+after_build:
+  - ps: >-
+      if ($env:APPVEYOR_REPO_TAG -eq "true")
+      {
+        Rename-Item "SinsDataConverter.Installer\bin\Release\SinsDataConverter-Installer.msi" "SinsDataConverter-$env:APPVEYOR_REPO_TAG_NAME.msi"
+      }
+      else
+      {
+        Rename-Item "SinsDataConverter.Installer\bin\Release\SinsDataConverter-Installer.msi" "SinsDataConverter-$env:APPVEYOR_REPO_BRANCH-$env:APPVEYOR_BUILD_VERSION.msi"
+      }
 
 test: off
 
 artifacts:
-  - path: SinsDataConverter.Installer\bin\Release\SinsDataConverter-Installer.msi
+  - path: '**\*.msi'
 
-deploy: off
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: VqgrP/Fg6/6IUKNvLW5ifXMXDvnMZqfGpeeNvNB4u7Z4bUpW/sXOw7G+L0174GLo
+    description: ''
+    artifact: /.*\.msi/
+    draft: true
+    prerelease: false
+    on:
+      appveyor_repo_tag: true

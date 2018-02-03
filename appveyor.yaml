@@ -1,0 +1,27 @@
+version: 3.0.0-beta build {build}
+branches:
+  only:
+    - master
+    - develop
+max_jobs: 1
+
+image: Visual Studio 2017
+clone_depth: 1
+cache:
+  - packages -> **\packages.config
+
+platform: Any CPU
+configuration:
+  - Debug
+  - Release
+
+build:
+  parallel: false
+  project: SinsDataConverter.sln
+
+test: off
+
+artifacts:
+  - path: SinsDataConverter.Installer\Release\SinsDataConverter.Installer.msi
+
+deploy: off

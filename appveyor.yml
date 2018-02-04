@@ -1,5 +1,7 @@
 version: 3.0.0.{build}
 max_jobs: 1
+skip_commits:
+  message: /^docs/
 
 image: Visual Studio 2017
 init:

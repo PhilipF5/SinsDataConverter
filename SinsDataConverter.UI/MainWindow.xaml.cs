@@ -57,6 +57,8 @@ namespace SinsDataConverter.UI
 				case ConversionSettings.ConversionInputType.Directory:
 					OutputTextBox.Text = new DirectoryInfo(SourceTextBox.Text).FullName;
 					break;
+				default:
+					throw new InvalidOperationException("Input type of conversion is not recognized");
 			}
 		}
 

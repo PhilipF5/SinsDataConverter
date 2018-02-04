@@ -196,7 +196,7 @@ namespace SinsDataConverter.Core
 			}
 			else
 			{
-				throw new NullReferenceException("Input type not specified");
+				throw new ArgumentNullException("settings", "Input type not specified");
 			}
 			return jobs;
 		}

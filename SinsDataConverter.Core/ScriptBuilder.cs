@@ -9,8 +9,8 @@ namespace SinsDataConverter.Core
 {
 	class ScriptBuilder
 	{
-		private List<ConversionJob> _jobs = new List<ConversionJob>();
-		private DateTime _timestamp = DateTime.UtcNow;
+		private readonly List<ConversionJob> _jobs = new List<ConversionJob>();
+		private readonly DateTime _timestamp = DateTime.UtcNow;
 
 		public void AddJobs(IEnumerable<ConversionJob> jobs)
 		{
@@ -19,18 +19,15 @@ namespace SinsDataConverter.Core
 
 		public Stream Build(Stream outputStream = null)
 		{
-			if (outputStream == null)
-			{
-				outputStream = new MemoryStream();
-			}
-			using (var writer = new StreamWriter(outputStream))
+			var stream = outputStream ?? new MemoryStream();
+			using (var writer = new StreamWriter(stream))
 			{
 				foreach (var job in _jobs)
 				{
 					writer.WriteLine(job.ToString());
 				}
 			}
-			return outputStream;
+			return stream;
 		}
 	}
 }

@@ -70,7 +70,7 @@ namespace SinsDataConverter.Core
 
 		public static void Save()
 		{
-
+			throw new NotImplementedException("Saving exeList not yet implemented");
 		}
 
 		public static bool ScanForInstalls()

@@ -62,7 +62,7 @@ namespace SinsDataConverter.Core
 				FileName = _scriptFile.FullName
 			};
 
-			var batchResults = await ProcessEx.RunAsync(batchProcess);
+			await ProcessEx.RunAsync(batchProcess);
 
 			if (!_keepScripts)
 			{

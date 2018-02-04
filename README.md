@@ -9,6 +9,7 @@
 <br>
 <img src="https://img.shields.io/github/release/philipf5/SinsDataConverter/all.svg">
 <img src="https://ci.appveyor.com/api/projects/status/github/philipf5/SinsDataConverter?svg=true&branch=develop" alt="Project Badge">
+<img src="https://img.shields.io/codacy/grade/da3ef4bffb224771940d9bdc7059852c/develop.svg">
 
 ## Description
 Sins Data Converter is a modding tool for the classic PC strategy game Sins of Solar Empire. It provides an easy-to-use GUI for the ConvertData command line utility provided by game developer Ironclad Games. Use of ConvertData is required to translate game files from the machine-readable binary format into an human-readable raw text format for modding. Sins Data Converter boasts a full set of impressive features that take advantage of ConvertData's flexibility, none of which require any knowledge of the command line.

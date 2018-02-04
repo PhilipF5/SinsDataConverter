@@ -8,6 +8,7 @@ title: Sins Data Converter
 <img src="https://img.shields.io/appveyor/ci/philipf5/SinsDataConverter/develop.svg?logo=appveyor">
 <img src="https://img.shields.io/github/last-commit/philipf5/SinsDataConverter/develop.svg">
 <img src="https://img.shields.io/github/issues-raw/philipf5/SinsDataConverter.svg">
+<img src="https://img.shields.io/codacy/grade/da3ef4bffb224771940d9bdc7059852c/develop.svg">
 
 # Jumpstart
 **January 2018**

@@ -160,7 +160,8 @@ namespace SinsDataConverter.Core
 					throw new DirectoryNotFoundException("Output directory does not exist");
 				}
 
-				var exe = ExeManager.GetFile(settings.Version ?? throw new ArgumentNullException("gameEdition", "No valid game edition provided for this file"));
+				var exe = ExeManager.GetFile(settings.Version ??
+					throw new ArgumentNullException("gameEdition", "No valid game edition provided for this file"));
 				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
 
 				jobs = new List<ConversionJob>
@@ -182,7 +183,8 @@ namespace SinsDataConverter.Core
 					throw new DirectoryNotFoundException("Output directory does not exist");
 				}
 
-				var exe = ExeManager.GetFile(settings.Version ?? throw new ArgumentNullException("gameEdition", "No valid game edition provided for this directory"));
+				var exe = ExeManager.GetFile(settings.Version ??
+					throw new ArgumentNullException("gameEdition", "No valid game edition provided for this directory"));
 				if (exe == null || !exe.Exists)
 				{
 					throw new FileNotFoundException("ConvertData EXE does not exist for version " + Enum.GetName(typeof(GameEdition), settings.Version));
@@ -201,7 +203,7 @@ namespace SinsDataConverter.Core
 
 		public static ConversionJob Create(FileInfo file, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
 		{
-			return new ConversionJob()
+			return new ConversionJob
 			{
 				ConvertToTxt = convertToTxt,
 				ExePath = exe.FullName,
@@ -220,7 +222,7 @@ namespace SinsDataConverter.Core
 			var jobs = new List<ConversionJob>();
 			foreach (var file in files)
 			{
-				jobs.Add(new ConversionJob()
+				jobs.Add(new ConversionJob
 				{
 					ConvertToTxt = convertToTxt,
 					ExePath = exe.FullName,

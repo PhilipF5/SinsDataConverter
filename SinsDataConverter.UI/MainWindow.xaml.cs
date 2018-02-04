@@ -67,7 +67,7 @@ namespace SinsDataConverter.UI
 
 		private void FileButton_Click(object sender, RoutedEventArgs e)
 		{
-			var filesDialog = new OpenFileDialog()
+			var filesDialog = new OpenFileDialog
 			{
 				InitialDirectory = "Desktop",
 				Filter = "Sins Data Files|*.brushes;*.entity;*.mesh;*.particle|Brushes|*.brushes|Entity|*.entity|Mesh|*.mesh|Particle|*.particle",

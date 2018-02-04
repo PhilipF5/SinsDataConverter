@@ -16,7 +16,7 @@ namespace SinsDataConverter.Core
 			var convertData = directory?.GetFiles(filename);
 			if (convertData.FirstOrDefault() != null)
 			{
-				Add(new ConvertDataExe()
+				Add(new ConvertDataExe
 				{
 					File = convertData.FirstOrDefault(),
 					GameEdition = gameEdition,

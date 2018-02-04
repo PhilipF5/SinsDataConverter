@@ -56,7 +56,7 @@ namespace SinsDataConverter.Core
 		{
 			CreateScriptFile();
 
-			var batchProcess = new ProcessStartInfo()
+			var batchProcess = new ProcessStartInfo
 			{
 				CreateNoWindow = true,
 				FileName = _scriptFile.FullName

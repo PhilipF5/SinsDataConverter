@@ -10,7 +10,7 @@ namespace SinsDataConverter.Core
 		public FileInfo File { get; set; }
 		public GameEdition GameEdition { get; set; }
 		public Version GameVersion { get; set; }
-		public bool IsCustom { get; set; } = false;
-		public bool IsSteam { get; set; } = false;
+		public bool IsCustom { get; set; }
+		public bool IsSteam { get; set; }
     }
 }

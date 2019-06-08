@@ -1,5 +1,7 @@
 # Sins Data Converter
 
+### Installable downloads are on the [Releases page](https://github.com/PhilipF5/SinsDataConverter/releases). Read on to learn more about the available versions.
+
 ## Versions
 2012 release written in really messy VB.NET
 <br>

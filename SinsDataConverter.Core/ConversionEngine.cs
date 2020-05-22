@@ -8,25 +8,33 @@ using System.Threading.Tasks;
 
 namespace SinsDataConverter.Core
 {
-	public static class ConversionEngine
+	public class ConversionEngine
 	{
-		private static List<ConversionJob> Jobs;
-		private static bool KeepScripts;
-		private static FileInfo ScriptFile;
-		private static DirectoryInfo ScriptsLocation;
-		public static ReadOnlyCollection<ConversionJob> Queue => Jobs.AsReadOnly();
+		private List<ConversionJob> Jobs;
+		private bool KeepScripts;
+		private FileInfo ScriptFile;
+		private DirectoryInfo ScriptsLocation;
+		public ReadOnlyCollection<ConversionJob> Queue => Jobs.AsReadOnly();
 
-		public static void AddJob(ConversionJob job)
+		public ConversionEngine(string scriptsLocation = null, bool keepScripts = false)
+		{
+			Jobs = new List<ConversionJob>();
+			KeepScripts = keepScripts;
+			ScriptsLocation =
+				new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+		}
+
+		public void AddJob(ConversionJob job)
 		{
 			Jobs.Add(job);
 		}
 
-		public static void AddJobs(IEnumerable<ConversionJob> jobs)
+		public void AddJobs(IEnumerable<ConversionJob> jobs)
 		{
 			Jobs.AddRange(jobs);
 		}
 
-		public static void CreateScriptFile()
+		public void CreateScriptFile()
 		{
 			var builder = new ScriptBuilder();
 			builder.AddJobs(Jobs);
@@ -37,12 +45,12 @@ namespace SinsDataConverter.Core
 			}
 		}
 
-		public static void RemoveJob(ConversionJob job)
+		public void RemoveJob(ConversionJob job)
 		{
 			Jobs.Remove(job);
 		}
 
-		public static async Task Run()
+		public async Task Run()
 		{
 			CreateScriptFile();
 
@@ -58,14 +66,6 @@ namespace SinsDataConverter.Core
 			{
 				ScriptFile.Delete();
 			}
-		}
-
-		public static void StartNew(string scriptsLocation = null, bool keepScripts = false)
-		{
-			Jobs = new List<ConversionJob>();
-			KeepScripts = keepScripts;
-			ScriptsLocation =
-				new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 		}
 	}
 }

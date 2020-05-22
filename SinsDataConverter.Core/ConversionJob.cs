@@ -81,7 +81,7 @@ namespace SinsDataConverter.Core
 			}
 		}
 
-		public FileType Type => FileTypes.GetFromExtension(SourceFile.Extension);
+		public FileType Type => FileType.GetFromExtension(SourceFile.Extension);
 		public bool WillOverwrite => Overwrite;
 
 		public static IEnumerable<ConversionJob> Create(string inputPath, string outputPath, ConversionSettings settings)
@@ -143,7 +143,7 @@ namespace SinsDataConverter.Core
 			FileInfo exe,
 			bool convertToTxt = false
 		) {
-			return FileTypes.All
+			return FileType.All
 				.SelectMany(type => folder.EnumerateFiles($"*{type.Extension}", SearchOption.AllDirectories))
 				.Select(file => new ConversionJob
 				{

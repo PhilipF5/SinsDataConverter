@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SinsDataConverter.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SinsDataConverter.Core;
 
 namespace SinsDataConverter.App
 {
@@ -24,33 +24,39 @@ namespace SinsDataConverter.App
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private ConversionSettings _currentSettings = new ConversionSettings();
-		private bool _enableLogging;
-		private string _scriptsLocation;
+		private ConversionEngine Engine;
+		private ConversionSettings Settings;
+		private bool EnableLogging;
+		private string ScriptsPath;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
 
-		private void _reset()
+		private void Reset()
 		{
-			ConversionEngine.StartNew(_scriptsLocation, _enableLogging);
-			SourceTextBox.Text = "";
-			InPlaceCheckBox.IsChecked = false;
-			OutputTextBox.Text = "";
-			ToBinRadioButton.IsChecked = false;
-			ToTxtRadioButton.IsChecked = false;
-			OriginalSinsRadioButton.IsChecked = false;
-			EntrenchmentRadioButton.IsChecked = false;
-			DiplomacyRadioButton.IsChecked = false;
-			RebellionRadioButton.IsChecked = false;
-			_currentSettings = new ConversionSettings();
+			Engine = new ConversionEngine(ScriptsPath, EnableLogging);
+			Settings = new ConversionSettings();
+			var textFields = new List<TextBox> { OutputTextBox, SourceTextBox };
+			var toggles = new List<Primitives.ToggleButton>
+			{
+				InPlaceCheckBox,
+				ToBinRadioButton,
+				ToTxtRadioButton,
+				OriginalSinsRadioButton,
+				EntrenchmentRadioButton,
+				DiplomacyRadioButton,
+				RebellionRadioButton,
+			};
+
+			textFields.ForEach(field => (field.Text = string.Empty));
+			toggles.ForEach(toggle => (toggle.IsChecked = false));
 		}
 
-		private void _setInPlace()
+		private void SetInPlace()
 		{
-			switch (_currentSettings.InputType)
+			switch (Settings.InputType)
 			{
 				case ConversionSettings.ConversionInputType.File:
 					OutputTextBox.Text = new FileInfo(SourceTextBox.Text).DirectoryName;
@@ -63,27 +69,35 @@ namespace SinsDataConverter.App
 			}
 		}
 
-		private void _showError(string message)
+		private void ShowError(string message)
 		{
 			System.Windows.MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
 		private void FileButton_Click(object sender, RoutedEventArgs e)
 		{
+			var filters = new Dictionary<string, string>
+			{
+				{ "Sins Data Files", string.Join(';', FileTypes.All.Select(type => $"*{type.Extension}")) }
+			}
+				.Concat(FileTypes.All.ToDictionary(type => type.Name, type => type.Pattern))
+				.Select(filter => $"{filter.Key}|{filter.Value}");
+
 			var filesDialog = new Microsoft.Win32.OpenFileDialog
 			{
 				InitialDirectory = "Desktop",
-				Filter = "Sins Data Files|*.brushes;*.entity;*.mesh;*.particle|Brushes|*.brushes|Entity|*.entity|Mesh|*.mesh|Particle|*.particle",
+				Filter = string.Join('|', filters),
 				FilterIndex = 1,
-				Title = "Select a file to convert..."
+				Title = "Select a file to convert...",
 			};
-			if (filesDialog.ShowDialog() == true)
+
+			if (filesDialog.ShowDialog())
 			{
 				SourceTextBox.Text = filesDialog.FileName;
-				_currentSettings.InputType = ConversionSettings.ConversionInputType.File;
+				Settings.InputType = ConversionSettings.ConversionInputType.File;
 				if (InPlaceCheckBox.IsChecked == true)
 				{
-					_setInPlace();
+					SetInPlace();
 				}
 			}
 		}
@@ -94,10 +108,10 @@ namespace SinsDataConverter.App
 			if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				SourceTextBox.Text = folderDialog.SelectedPath;
-				_currentSettings.InputType = ConversionSettings.ConversionInputType.Directory;
+				Settings.InputType = ConversionSettings.ConversionInputType.Directory;
 				if (InPlaceCheckBox.IsChecked == true)
 				{
-					_setInPlace();
+					SetInPlace();
 				}
 			}
 		}
@@ -106,7 +120,7 @@ namespace SinsDataConverter.App
 		{
 			if (!String.IsNullOrWhiteSpace(SourceTextBox.Text))
 			{
-				_setInPlace();
+				SetInPlace();
 			}
 		}
 
@@ -121,74 +135,79 @@ namespace SinsDataConverter.App
 
 		private void OriginalSinsRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameEdition.OriginalSins;
+			Settings.Version = GameEdition.OriginalSins;
 		}
 
 		private void EntrenchmentRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameEdition.Entrenchment;
+			Settings.Version = GameEdition.Entrenchment;
 		}
 
 		private void DiplomacyRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameEdition.Diplomacy;
+			Settings.Version = GameEdition.Diplomacy;
 		}
 
 		private void RebellionRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.Version = GameEdition.Rebellion;
+			Settings.Version = GameEdition.Rebellion;
 		}
 
 		private void ToTxtRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Txt;
+			Settings.OutputType = ConversionSettings.ConversionOutputType.Txt;
 		}
 
 		private void ToBinRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			_currentSettings.OutputType = ConversionSettings.ConversionOutputType.Bin;
+			Settings.OutputType = ConversionSettings.ConversionOutputType.Bin;
 		}
 
 		private async void ConvertButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!_currentSettings.IsValid)
+			if (!Settings.IsValid)
 			{
-				_showError("All settings are required");
+				ShowError("All settings are required");
 				return;
 			}
 
 			try
 			{
-				ConversionEngine.AddJobs(ConversionJob.Create(SourceTextBox.Text, OutputTextBox.Text, _currentSettings));
-				ConversionEngine.CreateScriptFile();
+				Engine.AddJobs(ConversionJob.Create(SourceTextBox.Text, OutputTextBox.Text, Settings));
+				Engine.CreateScriptFile();
 				ProgressBar.IsIndeterminate = true;
-				var startTime = DateTime.Now;
-				await ConversionEngine.Run();
-				var endTime = DateTime.Now;
+				var startTime = DateTime.Now.ToString();
+				await Engine.Run();
+				var endTime = DateTime.Now.ToString();
 				ProgressBar.IsIndeterminate = false;
-				System.Windows.MessageBox.Show($"Conversion job started at {startTime.ToString()}{Environment.NewLine}Finished at {endTime.ToString()}", "Conversion finished", MessageBoxButton.OK, MessageBoxImage.Information);
+				System.Windows.MessageBox.Show(
+					$"Conversion job started at {startTime}{Environment.NewLine}Finished at {endTime}",
+					"Conversion finished",
+					MessageBoxButton.OK,
+					MessageBoxImage.Information
+				);
 			}
 			catch (ArgumentOutOfRangeException ex)
 			{
-				_showError(ex.Message + Environment.NewLine + ex.ParamName);
+				ShowError(ex.Message + Environment.NewLine + ex.ParamName);
 			}
 			catch (DirectoryNotFoundException ex)
 			{
-				_showError(ex.Message);
+				ShowError(ex.Message);
 			}
 			catch (FileNotFoundException ex)
 			{
-				_showError(ex.Message + Environment.NewLine + ex.FileName);
+				ShowError(ex.Message + Environment.NewLine + ex.FileName);
 			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			_enableLogging = AppConfig.Default.EnableLogging;
-			_scriptsLocation = String.IsNullOrEmpty(AppConfig.Default.ScriptsLocation) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : AppConfig.Default.ScriptsLocation;
+			EnableLogging = AppConfig.Default.EnableLogging;
+			ScriptsPath = String.IsNullOrEmpty(AppConfig.Default.ScriptsLocation) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : AppConfig.Default.ScriptsLocation;
+			Reset();
 
 			ExeManager.ScanForInstalls();
-			ConversionEngine.StartNew(_scriptsLocation, _enableLogging);
 			OriginalSinsRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.OriginalSins);
 			EntrenchmentRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.Entrenchment);
 			DiplomacyRadioButton.IsEnabled = ExeManager.HasExeForEdition(GameEdition.Diplomacy);
@@ -197,7 +216,7 @@ namespace SinsDataConverter.App
 
 		private void ResetButton_Click(object sender, RoutedEventArgs e)
 		{
-			_reset();
+			Reset();
 		}
 	}
 }

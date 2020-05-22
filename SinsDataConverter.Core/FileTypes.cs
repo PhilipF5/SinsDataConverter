@@ -2,8 +2,12 @@
 
 namespace SinsDataConverter.Core
 {
-	public static class FileTypes
+	public class FileType
 	{
+		public string Extension => "." + Name;
+		public string Name { get; set; }
+		public string Pattern => $"*{Extension}";
+
 		public static FileType Brushes { get; } = new FileType
 		{
 			Name = "brushes"
@@ -30,11 +34,5 @@ namespace SinsDataConverter.Core
 		{
 			return All.FirstOrDefault(x => x.Extension == extension);
 		}
-	}
-
-	public class FileType
-	{
-		public string Extension => "." + Name;
-		public string Name { get; set; }
 	}
 }

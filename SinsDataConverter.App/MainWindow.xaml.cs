@@ -151,7 +151,7 @@ namespace SinsDataConverter.App
 
 		private async void ConvertButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!_currentSettings.IsValid())
+			if (!_currentSettings.IsValid)
 			{
 				_showError("All settings are required");
 				return;

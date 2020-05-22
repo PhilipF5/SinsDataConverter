@@ -46,8 +46,8 @@ namespace SinsDataConverter.Core
 			ConvertDataNames = new Dictionary<GameEdition, string>
 			{
 				{ GameEdition.OriginalSins, "ConvertData_OriginalSins.exe" },
-				{ GameEdition.OriginalSins, "ConvertData_Entrenchment.exe" },
-				{ GameEdition.OriginalSins, "ConvertData_Diplomacy.exe" },
+				{ GameEdition.Entrenchment, "ConvertData_Entrenchment.exe" },
+				{ GameEdition.Diplomacy, "ConvertData_Diplomacy.exe" },
 			},
 		};
 	}

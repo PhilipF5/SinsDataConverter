@@ -13,8 +13,8 @@ namespace SinsDataConverter.Core
 		}
 
 		public DirectoryInfo InstallDirectory => InstallPath != null ? new DirectoryInfo(InstallPath) : null;
-		public string InstallPath => RegistryKey?.GetValue("Path")?.ToString();
-		public bool IsInstalled => RegistryKey != null;
+		public virtual string InstallPath => RegistryKey?.GetValue("Path")?.ToString();
+		public bool IsInstalled => InstallPath != null;
 		public RegistryKey RegistryKey { get; set; }
 
 		protected IDictionary<GameEdition, string> ConvertDataNames { get; set; }

@@ -6,7 +6,7 @@ namespace SinsDataConverter.Core
 {
 	public class SteamInstall : GameInstall
 	{
-		new public string InstallPath
+		public override string InstallPath
 		{
 			get
 			{

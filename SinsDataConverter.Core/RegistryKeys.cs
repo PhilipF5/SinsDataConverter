@@ -1,76 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
 
 namespace SinsDataConverter.Core
 {
 	static class RegistryKeys
 	{
-		private static string _root
-		{
-			get
-			{
-				return $"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Stardock\\Drengin.net\\";
-			}
-		}
+		public static bool Is64Bit => Environment.Is64BitOperatingSystem;
+		public static RegistryKey Diplomacy => Open("sinsdiplo");
+		public static RegistryKey Entrenchment => Open("sinsentrench");
+		public static RegistryKey OriginalSins => Open("sins");
+		public static RegistryKey Rebellion => Open("sinsrebellion");
+		public static RegistryKey Steam => Open($"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Valve\\Steam", false);
+		public static RegistryKey Trinity => Open("sinstrinity");
+		private static string Root => $"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Stardock\\Drengin.net\\";
 
-		public static bool Is64Bit
+		private static RegistryKey Open(string subKey, bool useStardockRoot = true)
 		{
-			get
-			{
-				return Environment.Is64BitOperatingSystem;
-			}
-		}
-
-		public static RegistryKey OriginalSins
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey(_root + "sins", false);
-			}
-		}
-
-		public static RegistryKey Entrenchment
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey(_root + "sinsentrench", false);
-			}
-		}
-
-		public static RegistryKey Diplomacy
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey(_root + "sinsdiplo", false);
-			}
-		}
-
-		public static RegistryKey Trinity
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey(_root + "sinstrinity", false);
-			}
-		}
-
-		public static RegistryKey Rebellion
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey(_root + "sinsrebellion", false);
-			}
-		}
-
-		public static RegistryKey Steam
-		{
-			get
-			{
-				return Registry.LocalMachine.OpenSubKey($"SOFTWARE\\{(Is64Bit ? "Wow6432Node\\" : "")}Valve\\Steam", false);
-			}
+			return Registry.LocalMachine.OpenSubKey($"{(useStardockRoot ? Root : string.Empty)}{subKey}", false);
 		}
 	}
 }

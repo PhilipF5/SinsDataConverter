@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace SinsDataConverter.Core
 {
@@ -12,23 +8,26 @@ namespace SinsDataConverter.Core
 		public ConversionOutputType? OutputType { get; set; }
 		public GameEdition? Version { get; set; }
 
-		public bool IsValid()
+		public bool IsValid
 		{
-			return !(GetType().GetProperties()
-				.Select(property => property.GetValue(this))
-				.Any(value => value == null));
+			get
+			{
+				return GetType().GetProperties()
+					.Where(property => property.Name != "IsValid")
+					.All(property => property.GetValue(this) != null);
+			}
 		}
 
 		public enum ConversionInputType
 		{
 			File,
-			Directory
+			Directory,
 		}
 
 		public enum ConversionOutputType
 		{
 			Bin,
-			Txt
+			Txt,
 		}
 	}
 }

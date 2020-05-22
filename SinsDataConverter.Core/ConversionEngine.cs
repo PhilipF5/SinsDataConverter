@@ -1,47 +1,37 @@
-﻿using System;
+﻿using RunProcessAsTask;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Diagnostics;
-using System.Configuration;
-using RunProcessAsTask;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SinsDataConverter.Core
 {
 	public static class ConversionEngine
 	{
-		private static List<ConversionJob> _jobs;
-		private static bool _keepScripts;
-		private static FileInfo _scriptFile;
-		private static DirectoryInfo _scriptsLocation;
-
-		public static ReadOnlyCollection<ConversionJob> Queue
-		{
-			get
-			{
-				return _jobs.AsReadOnly();
-			}
-		}
+		private static List<ConversionJob> Jobs;
+		private static bool KeepScripts;
+		private static FileInfo ScriptFile;
+		private static DirectoryInfo ScriptsLocation;
+		public static ReadOnlyCollection<ConversionJob> Queue => Jobs.AsReadOnly();
 
 		public static void AddJob(ConversionJob job)
 		{
-			_jobs.Add(job);
+			Jobs.Add(job);
 		}
 
 		public static void AddJobs(IEnumerable<ConversionJob> jobs)
 		{
-			_jobs.AddRange(jobs);
+			Jobs.AddRange(jobs);
 		}
 
 		public static void CreateScriptFile()
 		{
 			var builder = new ScriptBuilder();
-			builder.AddJobs(_jobs);
-			_scriptFile = new FileInfo(_scriptsLocation.FullName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HHmmss") + ".bat");
-			using (var fileStream = _scriptFile.OpenWrite())
+			builder.AddJobs(Jobs);
+			ScriptFile = new FileInfo($"{ScriptsLocation.FullName}\\{DateTime.Now.ToString("yyyy-MM-dd_HHmmss")}.bat");
+			using (var fileStream = ScriptFile.OpenWrite())
 			{
 				builder.Build(fileStream);
 			}
@@ -49,7 +39,7 @@ namespace SinsDataConverter.Core
 
 		public static void RemoveJob(ConversionJob job)
 		{
-			_jobs.Remove(job);
+			Jobs.Remove(job);
 		}
 
 		public static async Task Run()
@@ -59,22 +49,23 @@ namespace SinsDataConverter.Core
 			var batchProcess = new ProcessStartInfo
 			{
 				CreateNoWindow = true,
-				FileName = _scriptFile.FullName
+				FileName = ScriptFile.FullName
 			};
 
 			await ProcessEx.RunAsync(batchProcess);
 
-			if (!_keepScripts)
+			if (!KeepScripts)
 			{
-				_scriptFile.Delete();
+				ScriptFile.Delete();
 			}
 		}
 
 		public static void StartNew(string scriptsLocation = null, bool keepScripts = false)
 		{
-			_jobs = new List<ConversionJob>();
-			_keepScripts = keepScripts;
-			_scriptsLocation = new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+			Jobs = new List<ConversionJob>();
+			KeepScripts = keepScripts;
+			ScriptsLocation =
+				new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 		}
 	}
 }

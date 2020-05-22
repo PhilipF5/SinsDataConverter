@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace SinsDataConverter.Core
 {
 	class ScriptBuilder
 	{
-		private readonly List<ConversionJob> _jobs = new List<ConversionJob>();
-		private readonly DateTime _timestamp = DateTime.UtcNow;
+		private readonly List<ConversionJob> Jobs = new List<ConversionJob>();
+		private readonly DateTime Timestamp = DateTime.UtcNow;
 
 		public void AddJobs(IEnumerable<ConversionJob> jobs)
 		{
-			_jobs.AddRange(jobs);
+			Jobs.AddRange(jobs);
 		}
 
 		public Stream Build(Stream outputStream = null)
@@ -22,7 +19,7 @@ namespace SinsDataConverter.Core
 			var stream = outputStream ?? new MemoryStream();
 			using (var writer = new StreamWriter(stream))
 			{
-				foreach (var job in _jobs)
+				foreach (var job in Jobs)
 				{
 					writer.WriteLine(job.ToString());
 				}

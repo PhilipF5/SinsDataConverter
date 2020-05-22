@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace SinsDataConverter.Core
 {
@@ -32,19 +28,13 @@ namespace SinsDataConverter.Core
 
 		public static FileType GetFromExtension(string extension)
 		{
-			return All.Where(x => x.Extension == extension).FirstOrDefault();
+			return All.FirstOrDefault(x => x.Extension == extension);
 		}
 	}
 
 	public class FileType
 	{
-		public string Extension
-		{
-			get
-			{
-				return "." + Name;
-			}
-		}
+		public string Extension => "." + Name;
 		public string Name { get; set; }
 	}
 }

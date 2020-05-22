@@ -1,204 +1,129 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 
 namespace SinsDataConverter.Core
 {
 	public class ConversionJob
 	{
-		private bool _directionToTxt;
-		private FileInfo _exe;
-		private FileInfo _outputFile;
-		private bool _overwrite;
-		private FileInfo _sourceFile;
+		private bool DirectionToTxt;
+		private FileInfo Exe;
+		private FileInfo OutputFile;
+		private bool Overwrite;
+		private FileInfo SourceFile;
 
 		public bool ConvertToBin
 		{
-			get
-			{
-				return !_directionToTxt;
-			}
-			set
-			{
-				if (value)
-				{
-					_directionToTxt = false;
-				}
-				else
-				{
-					_directionToTxt = true;
-				}
-			}
+			get => !DirectionToTxt;
+			set => DirectionToTxt = !value;
 		}
 
 		public bool ConvertToTxt
 		{
-			get
-			{
-				return _directionToTxt;
-			}
-			set
-			{
-				if (value)
-				{
-					_directionToTxt = true;
-				}
-				else
-				{
-					_directionToTxt = false;
-				}
-			}
+			get => DirectionToTxt;
+			set => DirectionToTxt = value;
 		}
 
 		public string ExePath
 		{
-			get
-			{
-				return _exe.FullName;
-			}
+			get => Exe.FullName;
 			set
 			{
 				var file = new FileInfo(value);
 				if (!file.Exists)
 				{
-					throw new FileNotFoundException(file.Name + " could not be found", file.FullName);
+					throw new FileNotFoundException($"{file.Name} could not be found", file.FullName);
 				}
-				_exe = file;
+				Exe = file;
 			}
 		}
 
-		public string FileName
-		{
-			get
-			{
-				return _sourceFile.Name;
-			}
-		}
+		public string FileName => SourceFile.Name;
 
 		public bool IsInPlace
 		{
-			get
-			{
-				return _sourceFile.FullName == _outputFile.FullName;
-			}
+			get => SourceFile.FullName == OutputFile.FullName;
 			set
 			{
 				if (value)
 				{
-					_outputFile = new FileInfo(_sourceFile.FullName);
+					OutputFile = new FileInfo(SourceFile.FullName);
 				}
 			}
 		}
 
 		public string OutputPath
 		{
-			get
-			{
-				return _outputFile.FullName;
-			}
+			get => OutputFile.FullName;
 			set
 			{
 				var file = new FileInfo(value);
 				if (file.Exists)
 				{
-					_overwrite = true;
+					Overwrite = true;
 				}
-				_outputFile = file;
+				OutputFile = file;
 			}
 		}
 
 		public string SourcePath
 		{
-			get
-			{
-				return _sourceFile.FullName;
-			}
+			get => SourceFile.FullName;
 			set
 			{
 				var file = new FileInfo(value);
 				if (!file.Exists)
 				{
-					throw new FileNotFoundException(file.Name + " could not be found", file.FullName);
+					throw new FileNotFoundException($"{file.Name} could not be found", file.FullName);
 				}
-				_sourceFile = file;
+				SourceFile = file;
 			}
 		}
 
-		public FileType Type
+		public FileType Type => FileTypes.GetFromExtension(SourceFile.Extension);
+		public bool WillOverwrite => Overwrite;
+
+		public static IEnumerable<ConversionJob> Create(string inputPath, string outputPath, ConversionSettings settings)
 		{
-			get
+			var exe = ExeManager.GetFile(settings.Version ??
+				throw new ArgumentNullException("gameEdition", "No valid game edition provided for this input path"));
+			var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
+			var output = new DirectoryInfo(outputPath);
+			if (!output.Exists)
 			{
-				return FileTypes.GetFromExtension(_sourceFile.Extension);
+				throw new DirectoryNotFoundException("Output directory does not exist");
 			}
-		}
 
-		public bool WillOverwrite
-		{
-			get
-			{
-				return _overwrite;
+			switch (settings.InputType) {
+				case ConversionSettings.ConversionInputType.File:
+					var file = new FileInfo(inputPath);
+					if (!file.Exists)
+					{
+						throw new FileNotFoundException("Input file does not exist", inputPath);
+					}
+
+					return new List<ConversionJob>
+					{
+						Create(file, output, exe, convertToTxt),
+					};
+				case ConversionSettings.ConversionInputType.Directory:
+					var directory = new DirectoryInfo(inputPath);
+					if (!directory.Exists)
+					{
+						throw new DirectoryNotFoundException("Input directory does not exist");
+					}
+
+					if (exe == null || !exe.Exists)
+					{
+						throw new FileNotFoundException(
+							$"ConvertData EXE does not exist for version {Enum.GetName(typeof(GameEdition), settings.Version)}");
+					}
+
+					return Create(directory, output, exe, convertToTxt);
+				default:
+					throw new ArgumentNullException("settings", "Input type not specified");
 			}
-		}
-
-		public static List<ConversionJob> Create(string inputPath, string outputPath, ConversionSettings settings)
-		{
-			List<ConversionJob> jobs;
-			if (settings.InputType == ConversionSettings.ConversionInputType.File)
-			{
-				var file = new FileInfo(inputPath);
-				if (!file.Exists)
-				{
-					throw new FileNotFoundException("Input file does not exist", inputPath);
-				}
-
-				var output = new DirectoryInfo(outputPath);
-				if (!output.Exists)
-				{
-					throw new DirectoryNotFoundException("Output directory does not exist");
-				}
-
-				var exe = ExeManager.GetFile(settings.Version ??
-					throw new ArgumentNullException("gameEdition", "No valid game edition provided for this file"));
-				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
-
-				jobs = new List<ConversionJob>
-				{
-					Create(file, output, exe, convertToTxt)
-				};
-			}
-			else if (settings.InputType == ConversionSettings.ConversionInputType.Directory)
-			{
-				var directory = new DirectoryInfo(inputPath);
-				if (!directory.Exists)
-				{
-					throw new DirectoryNotFoundException("Input directory does not exist");
-				}
-
-				var output = new DirectoryInfo(outputPath);
-				if (!output.Exists)
-				{
-					throw new DirectoryNotFoundException("Output directory does not exist");
-				}
-
-				var exe = ExeManager.GetFile(settings.Version ??
-					throw new ArgumentNullException("gameEdition", "No valid game edition provided for this directory"));
-				if (exe == null || !exe.Exists)
-				{
-					throw new FileNotFoundException("ConvertData EXE does not exist for version " + Enum.GetName(typeof(GameEdition), settings.Version));
-				}
-
-				var convertToTxt = (settings.OutputType == ConversionSettings.ConversionOutputType.Txt);
-
-				jobs = Create(directory, output, exe, convertToTxt);
-			}
-			else
-			{
-				throw new ArgumentNullException("settings", "Input type not specified");
-			}
-			return jobs;
 		}
 
 		public static ConversionJob Create(FileInfo file, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
@@ -208,29 +133,25 @@ namespace SinsDataConverter.Core
 				ConvertToTxt = convertToTxt,
 				ExePath = exe.FullName,
 				OutputPath = file.FullName.Replace(file.DirectoryName, output.FullName),
-				SourcePath = file.FullName
+				SourcePath = file.FullName,
 			};
 		}
 
-		public static List<ConversionJob> Create(DirectoryInfo folder, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
-		{
-			var files = new List<FileInfo>();
-			foreach (var type in FileTypes.All)
-			{
-				files.AddRange(folder.EnumerateFiles("*" + type.Extension, SearchOption.AllDirectories));
-			}
-			var jobs = new List<ConversionJob>();
-			foreach (var file in files)
-			{
-				jobs.Add(new ConversionJob
+		public static IEnumerable<ConversionJob> Create(
+			DirectoryInfo folder,
+			DirectoryInfo output,
+			FileInfo exe,
+			bool convertToTxt = false
+		) {
+			return FileTypes.All
+				.SelectMany(type => folder.EnumerateFiles($"*{type.Extension}", SearchOption.AllDirectories))
+				.Select(file => new ConversionJob
 				{
 					ConvertToTxt = convertToTxt,
 					ExePath = exe.FullName,
 					OutputPath = file.FullName.Replace(folder.FullName, output.FullName),
-					SourcePath = file.FullName
+					SourcePath = file.FullName,
 				});
-			}
-			return jobs;
 		}
 
 		public override string ToString()

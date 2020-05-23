@@ -8,31 +8,17 @@ namespace SinsDataConverter.Core
 		public string Name { get; set; }
 		public string Pattern => $"*{Extension}";
 
-		public static FileType Brushes { get; } = new FileType
-		{
-			Name = "brushes"
-		};
-
-		public static FileType Entity { get; } = new FileType
-		{
-			Name = "entity"
-		};
-
-		public static FileType Mesh { get; } = new FileType
-		{
-			Name = "mesh"
-		};
-
-		public static FileType Particle { get; } = new FileType
-		{
-			Name = "particle"
-		};
-
+		public static FileType Brushes { get; } = new FileType("brushes");
+		public static FileType Entity { get; } = new FileType("entity");
+		public static FileType Mesh { get; } = new FileType("mesh");
+		public static FileType Particle { get; } = new FileType("particle");
 		public static FileType[] All { get; } = { Brushes, Entity, Mesh, Particle };
 
-		public static FileType GetFromExtension(string extension)
+		public FileType(string name)
 		{
-			return All.FirstOrDefault(x => x.Extension == extension);
+			Name = name;
 		}
+
+		public static FileType GetFromExtension(string extension) => All.FirstOrDefault(x => x.Extension == extension);
 	}
 }

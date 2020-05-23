@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ namespace SinsDataConverter.Core
 {
 	public class SteamInstall : GameInstall
 	{
-		public override string InstallPath
+		public override string? InstallPath
 		{
 			get
 			{
@@ -17,21 +18,27 @@ namespace SinsDataConverter.Core
 				}
 
 				return new DirectoryInfo(steamPath)
-					.GetDirectories(
-						"Sins of a Solar Empire Rebellion",
-						SearchOption.AllDirectories
-					).FirstOrDefault()?
-					.FullName;
+					.GetDirectories("Sins of a Solar Empire Rebellion", SearchOption.AllDirectories)
+					.Select(d => d.FullName)
+					.FirstOrDefault();
 			}
 		}
 
-		public static SteamInstall Rebellion => new SteamInstall
+		public static SteamInstall Rebellion
 		{
-			RegistryKey = RegistryKeys.Steam,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.Rebellion, "ConvertData_Rebellion.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.Rebellion] = "ConvertData_Rebellion.exe",
+				};
+				return new SteamInstall(RegistryKeys.Steam, convertDataNames);
+			}
+		}
+
+		public SteamInstall(RegistryKey? registryKey, IDictionary<GameEdition, string> convertDataNames)
+			: base(registryKey, convertDataNames)
+		{
+		}
 	}
 }

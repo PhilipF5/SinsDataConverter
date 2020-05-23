@@ -28,15 +28,7 @@ namespace SinsDataConverter.Core
 		public string ExePath
 		{
 			get => Exe.FullName;
-			set
-			{
-				var file = new FileInfo(value);
-				if (!file.Exists)
-				{
-					throw new FileNotFoundException($"{file.Name} could not be found", file.FullName);
-				}
-				Exe = file;
-			}
+			set => Exe = GetFile(value);
 		}
 
 		public string FileName => SourceFile.Name;
@@ -48,7 +40,7 @@ namespace SinsDataConverter.Core
 			{
 				if (value)
 				{
-					OutputFile = new FileInfo(SourceFile.FullName);
+					OutputPath = SourceFile.FullName;
 				}
 			}
 		}
@@ -70,19 +62,25 @@ namespace SinsDataConverter.Core
 		public string SourcePath
 		{
 			get => SourceFile.FullName;
-			set
-			{
-				var file = new FileInfo(value);
-				if (!file.Exists)
-				{
-					throw new FileNotFoundException($"{file.Name} could not be found", file.FullName);
-				}
-				SourceFile = file;
-			}
+			set => SourceFile = GetFile(value);
 		}
 
 		public FileType Type => FileType.GetFromExtension(SourceFile.Extension);
 		public bool WillOverwrite => Overwrite;
+
+		private ConversionJob(bool directionToTxt, string exePath, string outputPath, string sourcePath)
+		{
+			DirectionToTxt = directionToTxt;
+			Exe = GetFile(exePath);
+			SourceFile = GetFile(sourcePath);
+
+			var outputFile = new FileInfo(outputPath);
+			OutputFile = outputFile;
+			if (outputFile.Exists)
+			{
+				Overwrite = true;
+			}
+		}
 
 		public static IEnumerable<ConversionJob> Create(string inputPath, string outputPath, ConversionSettings settings)
 		{
@@ -105,7 +103,7 @@ namespace SinsDataConverter.Core
 
 					return new List<ConversionJob>
 					{
-						Create(file, output, exe, convertToTxt),
+						Create(file, output, exe!, convertToTxt),
 					};
 				case ConversionSettings.ConversionInputType.Directory:
 					var directory = new DirectoryInfo(inputPath);
@@ -128,13 +126,12 @@ namespace SinsDataConverter.Core
 
 		public static ConversionJob Create(FileInfo file, DirectoryInfo output, FileInfo exe, bool convertToTxt = false)
 		{
-			return new ConversionJob
-			{
-				ConvertToTxt = convertToTxt,
-				ExePath = exe.FullName,
-				OutputPath = file.FullName.Replace(file.DirectoryName, output.FullName),
-				SourcePath = file.FullName,
-			};
+			return new ConversionJob(
+				directionToTxt: convertToTxt,
+				exePath: exe.FullName,
+				outputPath: file.FullName.Replace(file.DirectoryName, output.FullName),
+				sourcePath: file.FullName
+			);
 		}
 
 		public static IEnumerable<ConversionJob> Create(
@@ -145,18 +142,27 @@ namespace SinsDataConverter.Core
 		) {
 			return FileType.All
 				.SelectMany(type => folder.EnumerateFiles($"*{type.Extension}", SearchOption.AllDirectories))
-				.Select(file => new ConversionJob
-				{
-					ConvertToTxt = convertToTxt,
-					ExePath = exe.FullName,
-					OutputPath = file.FullName.Replace(folder.FullName, output.FullName),
-					SourcePath = file.FullName,
-				});
+				.Select(file => new ConversionJob(
+					directionToTxt: convertToTxt,
+					exePath: exe.FullName,
+					outputPath: file.FullName.Replace(folder.FullName, output.FullName),
+					sourcePath: file.FullName
+				));
 		}
 
 		public override string ToString()
 		{
 			return $"\"{ExePath}\" {Type.Name} \"{SourcePath}\" \"{OutputPath}\"{(ConvertToTxt ? " txt" : "")}";
+		}
+
+		private FileInfo GetFile(string path)
+		{
+			var file = new FileInfo(path);
+			if (!file.Exists)
+			{
+				throw new FileNotFoundException($"{file.Name} could not be found", file.FullName);
+			}
+			return file;
 		}
 	}
 }

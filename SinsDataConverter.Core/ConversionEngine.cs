@@ -10,15 +10,14 @@ namespace SinsDataConverter.Core
 {
 	public class ConversionEngine
 	{
-		private List<ConversionJob> Jobs;
+		private List<ConversionJob> Jobs = new List<ConversionJob>();
 		private bool KeepScripts;
-		private FileInfo ScriptFile;
+		private FileInfo? ScriptFile;
 		private DirectoryInfo ScriptsLocation;
 		public ReadOnlyCollection<ConversionJob> Queue => Jobs.AsReadOnly();
 
-		public ConversionEngine(string scriptsLocation = null, bool keepScripts = false)
+		public ConversionEngine(string? scriptsLocation = null, bool keepScripts = false)
 		{
-			Jobs = new List<ConversionJob>();
 			KeepScripts = keepScripts;
 			ScriptsLocation =
 				new DirectoryInfo(scriptsLocation ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
@@ -57,7 +56,7 @@ namespace SinsDataConverter.Core
 			var batchProcess = new ProcessStartInfo
 			{
 				CreateNoWindow = true,
-				FileName = ScriptFile.FullName
+				FileName = ScriptFile!.FullName,
 			};
 
 			await ProcessEx.RunAsync(batchProcess);

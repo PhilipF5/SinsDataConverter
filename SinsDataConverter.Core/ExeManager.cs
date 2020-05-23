@@ -17,7 +17,7 @@ namespace SinsDataConverter.Core
 			}
 		}
 
-		public static FileInfo GetFile(GameEdition gameEdition, bool allowCustom = true)
+		public static FileInfo? GetFile(GameEdition gameEdition, bool allowCustom = true)
 		{
 			return GetLatest(gameEdition, allowCustom)?.File;
 		}
@@ -27,7 +27,7 @@ namespace SinsDataConverter.Core
 			throw new NotImplementedException("Getting an EXE by version is not yet implemented");
 		}
 
-		public static ConvertDataExe GetLatest(GameEdition gameEdition, bool allowCustom = true)
+		public static ConvertDataExe? GetLatest(GameEdition gameEdition, bool allowCustom = true)
 		{
 			return ExeList
 				.Where(exe => exe.GameEdition == gameEdition)

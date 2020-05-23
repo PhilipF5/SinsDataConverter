@@ -14,7 +14,7 @@ namespace SinsDataConverter.Core
 			Jobs.AddRange(jobs);
 		}
 
-		public Stream Build(Stream outputStream = null)
+		public Stream Build(Stream? outputStream = null)
 		{
 			var stream = outputStream ?? new MemoryStream();
 			using (var writer = new StreamWriter(stream))

@@ -1,54 +1,75 @@
+using Microsoft.Win32;
 using System.Collections.Generic;
 
 namespace SinsDataConverter.Core
 {
 	public class ClassicInstall : GameInstall
 	{
-		public static ClassicInstall Diplomacy => new ClassicInstall
+		public static ClassicInstall Diplomacy
 		{
-			RegistryKey = RegistryKeys.Diplomacy,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.Diplomacy, "ConvertData_Diplomacy.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.Diplomacy] = "ConvertData_Diplomacy.exe",
+				};
+				return new ClassicInstall(RegistryKeys.Diplomacy, convertDataNames);
+			}
+		}
 
-		public static ClassicInstall Entrenchment => new ClassicInstall
+		public static ClassicInstall Entrenchment
 		{
-			RegistryKey = RegistryKeys.Entrenchment,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.Entrenchment, "ConvertData_Entrenchment.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.Entrenchment] = "ConvertData_Entrenchment.exe",
+				};
+				return new ClassicInstall(RegistryKeys.Entrenchment, convertDataNames);
+			}
+		}
 
-		public static ClassicInstall OriginalSins => new ClassicInstall
+		public static ClassicInstall OriginalSins
 		{
-			RegistryKey = RegistryKeys.OriginalSins,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.OriginalSins, "ConvertData.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.OriginalSins] = "ConvertData.exe",
+				};
+				return new ClassicInstall(RegistryKeys.OriginalSins, convertDataNames);
+			}
+		}
 
-		public static ClassicInstall Rebellion => new ClassicInstall
+		public static ClassicInstall Rebellion
 		{
-			RegistryKey = RegistryKeys.Rebellion,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.Rebellion, "ConvertData_Rebellion.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.Rebellion] = "ConvertData_Rebellion.exe",
+				};
+				return new ClassicInstall(RegistryKeys.Rebellion, convertDataNames);
+			}
+		}
 
-		public static ClassicInstall Trinity => new ClassicInstall
+		public static ClassicInstall Trinity
 		{
-			RegistryKey = RegistryKeys.Trinity,
-			ConvertDataNames = new Dictionary<GameEdition, string>
+			get
 			{
-				{ GameEdition.OriginalSins, "ConvertData_OriginalSins.exe" },
-				{ GameEdition.Entrenchment, "ConvertData_Entrenchment.exe" },
-				{ GameEdition.Diplomacy, "ConvertData_Diplomacy.exe" },
-			},
-		};
+				var convertDataNames = new Dictionary<GameEdition, string>
+				{
+					[GameEdition.OriginalSins] = "ConvertData_OriginalSins.exe",
+					[GameEdition.Entrenchment] = "ConvertData_Entrenchment.exe",
+					[GameEdition.Diplomacy] = "ConvertData_Diplomacy.exe",
+				};
+				return new ClassicInstall(RegistryKeys.Trinity, convertDataNames);
+			}
+		}
+
+		public ClassicInstall(RegistryKey? registryKey, IDictionary<GameEdition, string> convertDataNames)
+			: base(registryKey, convertDataNames)
+		{
+		}
 	}
 }

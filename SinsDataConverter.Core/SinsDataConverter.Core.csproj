@@ -7,10 +7,8 @@
     <Version>3.0.0-beta.1</Version>
     <AssemblyVersion>3.0.0.1</AssemblyVersion>
     <FileVersion>3.0.0.1</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
